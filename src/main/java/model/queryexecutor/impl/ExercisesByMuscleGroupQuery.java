@@ -29,9 +29,14 @@ public class ExercisesByMuscleGroupQuery implements QueryExecutor {
                 PreparedStatement preparedStatement = connection.prepareStatement(QUERY)
                 ) {
             preparedStatement.setString(1, this.muscleGroupName);
-            return Optional.of(preparedStatement.executeQuery());
+            final ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()) {
+                return Optional.of(resultSet);
+            }
+            resultSet.close();
         } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
+        return Optional.empty();
     }
 }

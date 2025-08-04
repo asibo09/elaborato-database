@@ -31,9 +31,13 @@ public class DailyWeightRoomAttendanceQuery implements QueryExecutor {
                 ) {
             preparedStatement.setDate(1, this.date);
             final ResultSet resultSet = preparedStatement.executeQuery();
-            return Optional.of(resultSet);
+            if(resultSet.next()) {
+                return Optional.of(resultSet);
+            }
+            resultSet.close();
         } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
+        return Optional.empty();
     }
 }
