@@ -4,6 +4,7 @@ import model.queryexecutor.api.QueryExecutor;
 import controller.Controller;
 
 import java.sql.*;
+import java.util.Optional;
 
 public class AddGymMemberQuery implements QueryExecutor {
 
@@ -41,10 +42,10 @@ public class AddGymMemberQuery implements QueryExecutor {
     }
 
     @Override
-    public ResultSet execute() {
+    public Optional<ResultSet> execute() {
         try (
                 Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-                PreparedStatement preparedStatement = connection.prepareStatement(QUERY)
+                PreparedStatement preparedStatement = connection.prepareStatement(this.QUERY)
         ) {
             // Assegniamo i parametri alla query
             preparedStatement.setString(1, CF); // Codice fiscale
@@ -62,11 +63,11 @@ public class AddGymMemberQuery implements QueryExecutor {
             preparedStatement.executeUpdate();
 
             // Non ci aspettiamo un ResultSet per un'operazione INSERT, quindi restituiamo null
-            return null;
+            return Optional.empty();
 
         } catch (final SQLException e) {
             e.printStackTrace();
-            return null;
+            return Optional.empty();
         }
     }
 }

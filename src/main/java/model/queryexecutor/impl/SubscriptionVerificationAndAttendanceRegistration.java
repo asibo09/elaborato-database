@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class SubscriptionVerificationAndAttendanceRegistration implements QueryExecutor {
 
@@ -21,7 +22,7 @@ public class SubscriptionVerificationAndAttendanceRegistration implements QueryE
             ")" +
             "AND Tipo_abbonamento = \"Sala Pesi\"" +
             "AND DATEDIFF(DATE_ADD(Data_stipulazione, INTERVAL Durata DAY), CURDATE()) > 0;";
-    private static final String REGISTER_ATTENDANCE_QUERY = "INSERT INTO Presenze_Sala_Pesi (Data stipulazione, tipo, durata, cf, Data, ora)" +
+    private static final String REGISTER_ATTENDANCE_QUERY = "INSERT INTO Presenze_Sala_Pesi (Data_stipulazione, tipo, durata, cf, Data, ora)" +
             "VALUES (?, ?, ?, ?, ?, ?)";
 
     private final String nome;
@@ -57,16 +58,16 @@ public class SubscriptionVerificationAndAttendanceRegistration implements QueryE
                 ){
             preparedStatement.setString(1, nome);
             preparedStatement.setString(2, cognome);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
-                this.dataStipulazione = resultSet.getDate("Data_stipulazione");
-                this.tipo = resultSet.getString("Tipo_abbonamento");
-                this.durata = resultSet.getTime("Durata");
-                this.cf = resultSet.getString("CF");
+            final ResultSet subscription = preparedStatement.executeQuery();
+            if(subscription.next()){
+                this.dataStipulazione = subscription.getDate("Data_stipulazione");
+                this.tipo = subscription.getString("Tipo_abbonamento");
+                this.durata = subscription.getTime("Durata");
+                this.cf = subscription.getString("CF");
             } else {
                 throw new RuntimeException("Abbonamento non trovato");
             }
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -79,15 +80,40 @@ public class SubscriptionVerificationAndAttendanceRegistration implements QueryE
      */
     private boolean verifySubscription() {
         try(
-                Connection connection = java.sql.DriverManager.getConnection()
-                ){} catch (Exception e) {
+                Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
+                PreparedStatement preparedStatement = connection.prepareStatement(this.VERIFY_QUERY);
+                ){
+            preparedStatement.setString(1, nome);
+            preparedStatement.setString(2, cognome);
+            final ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return true;
+            }
+            resultSet.close();
+        } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
         return false;
     }
 
     @Override
-    public ResultSet execute() {
-        return null;
+    public Optional<ResultSet> execute() {
+        if (verifySubscription()) {
+            try(
+                    Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
+                    PreparedStatement preparedStatement = connection.prepareStatement(this.REGISTER_ATTENDANCE_QUERY);
+                    ){
+                preparedStatement.setDate(1, dataStipulazione);
+                preparedStatement.setString(2, tipo);
+                preparedStatement.setTime(3, durata);
+                preparedStatement.setString(4, cf);
+                preparedStatement.setDate(5, data);
+                preparedStatement.setTime(6, ora);
+                preparedStatement.executeUpdate();
+            } catch (final SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return Optional.empty();
     }
 }

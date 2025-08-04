@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class RegisterSubscriptionQuery implements QueryExecutor {
 
@@ -30,10 +31,10 @@ public class RegisterSubscriptionQuery implements QueryExecutor {
     }
 
     @Override
-    public ResultSet execute() {
+    public Optional<ResultSet> execute() {
         try (
                 Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-                PreparedStatement preparedStatement = connection.prepareStatement(QUERY)
+                PreparedStatement preparedStatement = connection.prepareStatement(this.QUERY)
                 ){
             preparedStatement.setString(1, dataStipulazione);
             preparedStatement.setString(2, tipo);
@@ -41,10 +42,10 @@ public class RegisterSubscriptionQuery implements QueryExecutor {
             preparedStatement.setString(4, cf);
 
             preparedStatement.executeUpdate();
-            return null;
+            return Optional.empty();
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            return Optional.empty();
         }
     }
 }
