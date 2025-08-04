@@ -1,17 +1,21 @@
 package model.queryexecutor.impl;
 
+import controller.Controller;
 import model.queryexecutor.api.QueryExecutor;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
 public class ExercisesByMuscleGroupQuery implements QueryExecutor {
 
-    private static final String QUERY = "SELECT E.Nome_esercizio, A.Nome_muscolo" +
-            "FROM allenamento A, esercizio E" +
-            "WHERE A.Nome_esercizio = E.Nome_esercizio" +
-            "AND A.Nome_muscolo = ?";
+    private static final String QUERY = "SELECT e.Nome_Esercizio" +
+            "FROM Esercizi e, Allenamenti a, Gruppi_Muscolari g" +
+            "WHERE e.Nome_Esercizio = a.Nome_Esercizio" +
+            "AND a.Nome_Muscolo = g.Nome_Muscolo" +
+            "AND g.Nome_Muscolo = ?";
     private final String muscleGroupName;
 
     public ExercisesByMuscleGroupQuery(final String muscleGroupName) {
@@ -20,7 +24,14 @@ public class ExercisesByMuscleGroupQuery implements QueryExecutor {
 
     @Override
     public Optional<ResultSet> execute() {
-
-        return Optional.empty();
+        try(
+                Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
+                PreparedStatement preparedStatement = connection.prepareStatement(QUERY)
+                ) {
+            preparedStatement.setString(1, this.muscleGroupName);
+            return Optional.of(preparedStatement.executeQuery());
+        } catch (final SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

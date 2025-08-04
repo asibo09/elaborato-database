@@ -29,7 +29,7 @@ public class DailyWeightRoomAttendanceQuery implements QueryExecutor {
                 Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
                 PreparedStatement preparedStatement = connection.prepareStatement(this.QUERY);
                 ) {
-            preparedStatement.setDate(1, date);
+            preparedStatement.setDate(1, this.date);
             final ResultSet resultSet = preparedStatement.executeQuery();
             return Optional.of(resultSet);
         } catch (final SQLException e) {
