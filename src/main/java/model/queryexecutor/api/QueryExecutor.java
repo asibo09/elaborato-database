@@ -9,5 +9,5 @@ public interface QueryExecutor {
     /** This method is called by an object-query to execute the query which it stands fort
      * @return The resul of the query
      */
-    public Optional<ResultSet> execute() throws SQLException;
+    public Optional<ResultSet> execute();
 }
