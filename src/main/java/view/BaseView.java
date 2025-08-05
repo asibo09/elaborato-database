@@ -2,18 +2,18 @@ package view;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 
 public class BaseView extends JPanel {
 
-    private final JPanel estPanel;
-    private final JPanel westPanel;
-    private final JPanel northWestPanel;
-    private final JPanel southWestPanel;
+    protected final JPanel estPanel;
+    protected final JPanel westPanel;
+    protected final JPanel northWestPanel;
+    protected final JPanel southWestPanel;
 
     public BaseView() {
         this.setLayout(new BorderLayout());
@@ -31,9 +31,7 @@ public class BaseView extends JPanel {
         westPanel.add(northWestPanel, BorderLayout.NORTH);
         westPanel.add(southWestPanel, BorderLayout.SOUTH);
 
-        estPanel.add(new JTextArea("stirati"));
         northWestPanel.add(new JTextArea("stirati"));
-        southWestPanel.add(new JTextArea("stirati"));
 
         //divisione orizzontale tra i due pannelli principali di sinistra e destra 
         JSplitPane splitPaneEstWest = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, westPanel, estPanel);

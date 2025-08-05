@@ -15,7 +15,12 @@ public class View {
     private final JButton corsi;
     private final JButton macchinari;
     private final JButton trainer;
-    private final JButton schede;
+    private final JButton scheda;
+    private final JPanel personaPanel;
+    private final JPanel corsiPanel;
+    private final JPanel macchinariPanel;
+    private final JPanel trainerPanel;
+    private final JPanel schedaPanel;
 
     public View() {
         frame = new JFrame("My Application");
@@ -25,14 +30,20 @@ public class View {
         corsi = new JButton("Corsi");
         macchinari = new JButton("Macchinari");
         trainer = new JButton("Trainer");
-        schede = new JButton("Schede");
+        scheda = new JButton("Schede");
+
+        personaPanel = new Persona();
+        corsiPanel = new Corsi();
+        macchinariPanel = new Macchinari();
+        trainerPanel = new Trainer();
+        schedaPanel = new Scheda();
 
         menu.setFloatable(false);
         menu.add(persona);
         menu.add(corsi);
         menu.add(macchinari);
         menu.add(trainer);
-        menu.add(schede);
+        menu.add(scheda);
 
         frame.setLayout(new BorderLayout());
         frame.add(menu, BorderLayout.PAGE_START);
@@ -44,7 +55,7 @@ public class View {
 
         persona.addActionListener(e -> {
             frame.remove(panel);
-            panel = new BaseView();
+            panel = personaPanel;
             frame.add(panel, BorderLayout.CENTER);
             frame.revalidate();
             frame.repaint();
@@ -52,7 +63,7 @@ public class View {
 
         corsi.addActionListener(e -> {
             frame.remove(panel);
-            panel = new BaseView();
+            panel = corsiPanel;
             frame.add(panel, BorderLayout.CENTER);
             frame.revalidate();
             frame.repaint();
@@ -60,7 +71,7 @@ public class View {
 
         macchinari.addActionListener(e -> {
             frame.remove(panel);
-            panel = new BaseView();
+            panel = macchinariPanel;
             frame.add(panel, BorderLayout.CENTER);
             frame.revalidate();
             frame.repaint();
@@ -68,15 +79,15 @@ public class View {
 
         trainer.addActionListener(e -> {
             frame.remove(panel);
-            panel = new BaseView();
+            panel = trainerPanel;
             frame.add(panel, BorderLayout.CENTER);
             frame.revalidate();
             frame.repaint();
         });
 
-        schede.addActionListener(e -> {
+        scheda.addActionListener(e -> {
             frame.remove(panel);
-            panel = new BaseView();
+            panel = schedaPanel;
             frame.add(panel, BorderLayout.CENTER);
             frame.revalidate();
             frame.repaint();
