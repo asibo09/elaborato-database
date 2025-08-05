@@ -15,13 +15,13 @@ public class AddGymMemberQuery implements QueryExecutor {
     private final String cognome;
     private final String citta;
     private final String via;
-    private final String civico;
-    private int numeroTelefono;
-    private java.sql.Date dataNascita;
-    private java.sql.Date dataConsegnaCertificato;
-    private final String sesso;
+    private final int civico;
+    private String numeroTelefono;
+    private Date dataNascita;
+    private Date dataConsegnaCertificato;
+    private final char sesso;
     //La query da eseguire
-    private final String QUERY = "INSERT INTO iscritti (CF, Nome, Cognome, Città, Via, Civico, Numero Telefono, Data nascita, Data consegna certificato medico, Sesso)" +
+    private final String QUERY = "INSERT INTO ISCRITTO (CF, Nome, Cognome, Citta, Via, Numero_civico, Numero_telefono, Data_nascita, Data_consegna_Certificato_Medico, Sesso)" +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     public AddGymMemberQuery(
@@ -31,8 +31,11 @@ public class AddGymMemberQuery implements QueryExecutor {
             final String cognome,
             final String citta,
             final String via,
-            final String civico,
-            final String sesso
+            final int civico,
+            final char sesso,
+            final Date dataNascita,
+            final Date dataConsegnaCertificato, 
+            final String numeroTelefono
     ) {
         this.connection = connection;
         this.CF = cf;
@@ -42,6 +45,9 @@ public class AddGymMemberQuery implements QueryExecutor {
         this.via = via;
         this.civico = civico;
         this.sesso = sesso;
+        this.dataNascita = dataNascita;
+        this.dataConsegnaCertificato = dataConsegnaCertificato;
+        this.numeroTelefono = numeroTelefono;
     }
 
     @Override
@@ -55,11 +61,11 @@ public class AddGymMemberQuery implements QueryExecutor {
             preparedStatement.setString(3, cognome); // Cognome
             preparedStatement.setString(4, citta); // Città
             preparedStatement.setString(5, via); // Via
-            preparedStatement.setString(6, civico); // Civico
-            preparedStatement.setInt(7, numeroTelefono); // Numero di telefono
+            preparedStatement.setInt(6, civico); // Civico
+            preparedStatement.setString(7, numeroTelefono); // Numero di telefono
             preparedStatement.setDate(8, dataNascita); // Data di nascita
             preparedStatement.setDate(9, dataConsegnaCertificato); // Data consegna certificato medico
-            preparedStatement.setString(10, sesso); // Sesso
+            preparedStatement.setString(10, String.valueOf(sesso)); // Sesso
 
             // Esegue la query
             preparedStatement.executeUpdate();
