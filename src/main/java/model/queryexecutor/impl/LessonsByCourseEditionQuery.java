@@ -30,7 +30,7 @@ public class LessonsByCourseEditionQuery implements QueryExecutor {
     public Optional<ResultSet> execute() {
         try(
                 Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-                PreparedStatement preparedStatement = connection.prepareStatement(QUERY)
+                PreparedStatement preparedStatement = connection.prepareStatement(QUERY);
                 ) {
             preparedStatement.setString(1,this.courseName);
             preparedStatement.setDate(2,this.courseDate);
