@@ -1,4 +1,7 @@
 package view;
 
-public class Corsi{
+public class Corsi extends BaseView{
+    public Corsi(){
+        super();
+    }
 }

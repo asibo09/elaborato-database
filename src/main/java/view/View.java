@@ -44,7 +44,7 @@ public class View {
 
         persona.addActionListener(e -> {
             frame.remove(panel);
-            panel = new Persona();
+            panel = new BaseView();
             frame.add(panel, BorderLayout.CENTER);
             frame.revalidate();
             frame.repaint();
@@ -52,7 +52,7 @@ public class View {
 
         corsi.addActionListener(e -> {
             frame.remove(panel);
-            panel = new Persona();
+            panel = new BaseView();
             frame.add(panel, BorderLayout.CENTER);
             frame.revalidate();
             frame.repaint();
@@ -60,7 +60,7 @@ public class View {
 
         macchinari.addActionListener(e -> {
             frame.remove(panel);
-            panel = new Persona();
+            panel = new BaseView();
             frame.add(panel, BorderLayout.CENTER);
             frame.revalidate();
             frame.repaint();
@@ -68,7 +68,7 @@ public class View {
 
         trainer.addActionListener(e -> {
             frame.remove(panel);
-            panel = new Persona();
+            panel = new BaseView();
             frame.add(panel, BorderLayout.CENTER);
             frame.revalidate();
             frame.repaint();
@@ -76,7 +76,7 @@ public class View {
 
         schede.addActionListener(e -> {
             frame.remove(panel);
-            panel = new Persona();
+            panel = new BaseView();
             frame.add(panel, BorderLayout.CENTER);
             frame.revalidate();
             frame.repaint();
