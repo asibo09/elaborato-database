@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class RegisterSubscriptionQuery implements QueryExecutor {
 
-    private static final String QUERY = "INSERT INTO abbonamento_utenti (Data stipulazione, Tipo, Durata, CF) VALUES (?, ?, ?, ?)";
+    private final String QUERY = "INSERT INTO abbonamento_utenti (Data stipulazione, Tipo, Durata, CF) VALUES (?, ?, ?, ?)";
 
     private final String dataStipulazione;
     private final String tipo;

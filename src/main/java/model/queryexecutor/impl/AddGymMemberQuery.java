@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public class AddGymMemberQuery implements QueryExecutor {
 
+    private final java.sql.Connection connection;
     //Parametri da inserire nella query
     private final String CF;
     private final String nome;
@@ -22,8 +23,9 @@ public class AddGymMemberQuery implements QueryExecutor {
     //La query da eseguire
     private final String QUERY = "INSERT INTO iscritti (CF, Nome, Cognome, Città, Via, Civico, Numero Telefono, Data nascita, Data consegna certificato medico, Sesso)" +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
     public AddGymMemberQuery(
-            final DriverManager driverManager,
+            final Connection connection,
             final String cf,
             final String nome,
             final String cognome,
@@ -32,7 +34,8 @@ public class AddGymMemberQuery implements QueryExecutor {
             final String civico,
             final String sesso
     ) {
-        CF = cf;
+        this.connection = connection;
+        this.CF = cf;
         this.nome = nome;
         this.cognome = cognome;
         this.citta = citta;
@@ -44,7 +47,6 @@ public class AddGymMemberQuery implements QueryExecutor {
     @Override
     public Optional<ResultSet> execute() {
         try (
-                Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
                 PreparedStatement preparedStatement = connection.prepareStatement(this.QUERY)
         ) {
             // Assegniamo i parametri alla query
@@ -66,7 +68,6 @@ public class AddGymMemberQuery implements QueryExecutor {
             return Optional.empty();
 
         } catch (final SQLException e) {
-            e.printStackTrace();
             return Optional.empty();
         }
     }
