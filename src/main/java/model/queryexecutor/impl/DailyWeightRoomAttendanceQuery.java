@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class DailyWeightRoomAttendanceQuery implements QueryExecutor {
 
-    private static final String QUERY = "SELECT I.CF, I.Nome, I.Cognome, P.Data, P.Ora, COUNT(*) numPresenze" +
+    private final String QUERY = "SELECT I.CF, I.Nome, I.Cognome, P.Data, P.Ora, COUNT(*) numPresenze" +
             "FROM presenze_sala_pesi P, iscritti I" +
             "WHERE P.CF = I.CF" +
             "AND P.Data = ?" +

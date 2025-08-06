@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public class UserMonthlyClassAttendance implements QueryExecutor {
 
-    private static final String QUERY = "SELECT * FROM Presenze_Sala_Pesi WHERE Data = ? AND CF = ?";
+    private final String QUERY = "SELECT * FROM Presenze_Sala_Pesi WHERE Data = ? AND CF = ?";
 
     private final String cf;
     private final java.sql.Date data;

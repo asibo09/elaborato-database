@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public class LessonsByCourseEditionQuery implements QueryExecutor {
 
-    private static final String QUERY = "SELECT L.*" +
+    private final String QUERY = "SELECT L.*" +
             "FROM lezioni L, edizioni_corsi E" +
             "WHERE L.Data_inizio = E.Data_inizio" +
             "AND L.Nome_corso = E.Nome_corso" +
