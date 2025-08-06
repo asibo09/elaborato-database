@@ -28,9 +28,26 @@ public class ViewWorkoutPlanQuery implements QueryExecutor {
         this.CF = CF
     }
 
+
     @Override
     public Optional<ResultSet> execute() {
-        
+        try (
+            Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY)
+        ) {
+            preparedStatement.setString(1, codiceFiscale);
+
+            final ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                resultSet.beforeFirst(); 
+                return Optional.of(resultSet);
+            }
+
+        } catch (final SQLException e) {
+            throw new RuntimeException("Errore durante l'esecuzione della query 20", e);
+        }
+
+        return Optional.empty();
     }
 
 }

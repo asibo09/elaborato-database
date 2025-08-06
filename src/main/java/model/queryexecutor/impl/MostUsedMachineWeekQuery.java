@@ -35,7 +35,7 @@ public class MostUsedMachinesWeekQuery implements QueryExecutor {
     public Optional<ResultSet> execute() {
         try {
             Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-            PreparedStatement statement = connection.preparedStatement(QUERY);
+            PreparedStatement statement = connection.prepareStatement(QUERY);
             statement.setDate(1, startDate);
             statement.setDate(2, endDate);
             ResultSet resultSet = statement.executeQuery();
