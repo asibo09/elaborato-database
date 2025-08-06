@@ -1,4 +1,4 @@
-package view;
+package view.section;
 
 import java.awt.BorderLayout;
 import java.sql.Connection;
@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import model.factory.api.FactoryQuery;
 import model.factory.impl.FactoryQueryImpl;
 import model.queryexecutor.api.QueryExecutor;
+import view.BaseView;
 
 public class Persona extends BaseView {
 
