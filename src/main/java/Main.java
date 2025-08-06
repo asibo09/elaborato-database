@@ -1,5 +1,7 @@
 import view.View;
 
+import view.View;
+
 public class Main {
     public static void main(final String... args) {
 

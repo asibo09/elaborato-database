@@ -11,12 +11,14 @@ import java.util.Optional;
 
 public class TrainerCoursesOfTheCurrentYearQuery implements QueryExecutor {
 
-    private static final String TRAINER_CF_QUERY = "Select CF" +
+    //OP-15	Elenco dei corsi tenuti da un trainer in un determinato anno
+
+    private final String TRAINER_CF_QUERY = "Select CF" +
             "From Trainer" +
             "Where nome = ?" +
             "And Cognome = ?" +
             "Limit 1";
-    private static final String QUERY = "Select *" +
+    private final String QUERY = "Select *" +
             "From EDIZIONE_CORSI" +
             "Where CF = ?" +
             "And DATEDIFF(CURDATE(), Data_inizio) < 365";

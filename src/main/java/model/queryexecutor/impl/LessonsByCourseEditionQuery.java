@@ -12,7 +12,9 @@ import java.util.Optional;
 
 public class LessonsByCourseEditionQuery implements QueryExecutor {
 
-    private static final String QUERY = "SELECT L.*" +
+    //OP-18	Visualizzare elenco delle lezioni di un’edizione corso 
+
+    private final String QUERY = "SELECT L.*" +
             "FROM lezioni L, edizioni_corsi E" +
             "WHERE L.Data_inizio = E.Data_inizio" +
             "AND L.Nome_corso = E.Nome_corso" +
@@ -34,7 +36,7 @@ public class LessonsByCourseEditionQuery implements QueryExecutor {
                 ) {
             preparedStatement.setString(1,this.courseName);
             preparedStatement.setDate(2,this.courseDate);
-            final ResultSet resultSet = preparedStatement.executeQuery();
+            final ResultSet resultSet = prepareStatement.executeQuery();
             if(resultSet.next()) {
                 return Optional.of(resultSet);
             }

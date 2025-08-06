@@ -11,7 +11,9 @@ import java.util.Optional;
 
 public class ExercisesByMuscleGroupQuery implements QueryExecutor {
 
-    private static final String QUERY = "SELECT e.Nome_Esercizio" +
+    //OP-16	Mostrare gli esercizi che allenano un determinato gruppo muscolare
+
+    private final String QUERY = "SELECT e.Nome_Esercizio" +
             "FROM Esercizi e, Allenamenti a, Gruppi_Muscolari g" +
             "WHERE e.Nome_Esercizio = a.Nome_Esercizio" +
             "AND a.Nome_Muscolo = g.Nome_Muscolo" +

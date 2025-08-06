@@ -11,7 +11,9 @@ import java.util.Optional;
 
 public class SubscriptionVerificationAndAttendanceRegistration implements QueryExecutor {
 
-    private static final String VERIFY_QUERY = "SELECT *" +
+    //OP-11	Registrazione presenza in sala pesi e verifica del tipo e della validità dell’abbonamento
+
+    private final String VERIFY_QUERY = "SELECT *" +
             "FROM abbonamenti_utente" +
             "WHERE CF = (" +
             "    SELECT CF" +
@@ -22,7 +24,7 @@ public class SubscriptionVerificationAndAttendanceRegistration implements QueryE
             ")" +
             "AND Tipo_abbonamento = \"Sala Pesi\"" +
             "AND DATEDIFF(DATE_ADD(Data_stipulazione, INTERVAL Durata DAY), CURDATE()) > 0;";
-    private static final String REGISTER_ATTENDANCE_QUERY = "INSERT INTO Presenze_Sala_Pesi (Data_stipulazione, tipo, durata, cf, Data, ora)" +
+    private final String REGISTER_ATTENDANCE_QUERY = "INSERT INTO Presenze_Sala_Pesi (Data_stipulazione, tipo, durata, cf, Data, ora)" +
             "VALUES (?, ?, ?, ?, ?, ?)";
 
     private final String nome;
