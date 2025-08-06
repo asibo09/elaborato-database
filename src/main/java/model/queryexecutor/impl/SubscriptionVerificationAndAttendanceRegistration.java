@@ -11,6 +11,8 @@ import java.util.Optional;
 
 public class SubscriptionVerificationAndAttendanceRegistration implements QueryExecutor {
 
+    //OP-11	Registrazione presenza in sala pesi e verifica del tipo e della validità dell’abbonamento
+
     private final String VERIFY_QUERY = "SELECT *" +
             "FROM abbonamenti_utente" +
             "WHERE CF = (" +

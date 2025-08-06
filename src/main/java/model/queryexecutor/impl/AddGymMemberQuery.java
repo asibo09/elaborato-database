@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public class AddGymMemberQuery implements QueryExecutor {
 
+    //OP-1	Aggiunta di un nuovo iscritto
+
     private final java.sql.Connection connection;
     //Parametri da inserire nella query
     private final String CF;

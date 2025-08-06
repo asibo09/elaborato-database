@@ -11,6 +11,8 @@ import java.util.Optional;
 
 public class AddReportQuery implements QueryExecutor {
 
+    //OP-12	Inserimento di una segnalazione
+
     private final String QUERY = "INSERT INTO storico_segnalazioni (Numero segnalazione, Data, Ora, Stato, Descrizione, Numero Macchinario, Nome Macchinario)" +
             "VALUES (?, ?, ?, ?, ?, ?, ?)";
     private final String numeroSegnalazione;

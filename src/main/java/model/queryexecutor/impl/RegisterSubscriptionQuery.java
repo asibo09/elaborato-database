@@ -11,6 +11,8 @@ import java.util.Optional;
 
 public class RegisterSubscriptionQuery implements QueryExecutor {
 
+    //OP-2	Registrare un abbonamento per un iscritto
+
     private final String QUERY = "INSERT INTO abbonamento_utenti (Data stipulazione, Tipo, Durata, CF) VALUES (?, ?, ?, ?)";
 
     private final String dataStipulazione;

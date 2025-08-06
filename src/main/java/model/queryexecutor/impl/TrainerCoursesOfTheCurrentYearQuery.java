@@ -11,6 +11,8 @@ import java.util.Optional;
 
 public class TrainerCoursesOfTheCurrentYearQuery implements QueryExecutor {
 
+    //OP-15	Elenco dei corsi tenuti da un trainer in un determinato anno
+
     private final String TRAINER_CF_QUERY = "Select CF" +
             "From Trainer" +
             "Where nome = ?" +

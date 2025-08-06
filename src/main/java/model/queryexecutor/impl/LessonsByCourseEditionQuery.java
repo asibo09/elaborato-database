@@ -12,6 +12,8 @@ import java.util.Optional;
 
 public class LessonsByCourseEditionQuery implements QueryExecutor {
 
+    //OP-18	Visualizzare elenco delle lezioni di un’edizione corso 
+
     private final String QUERY = "SELECT L.*" +
             "FROM lezioni L, edizioni_corsi E" +
             "WHERE L.Data_inizio = E.Data_inizio" +
