@@ -1,16 +1,15 @@
 package model.queryexecutor.impl;
 
 import controller.Controller;
-import model.queryexecutor.api.QueryExecutor;
+import model.queryexecutor.api.Query;
 
-import javax.swing.text.html.Option;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class LessonsByCourseEditionQuery implements QueryExecutor {
+public class LessonsByCourseEditionQuery implements Query {
 
     //OP-18	Visualizzare elenco delle lezioni di un’edizione corso 
 

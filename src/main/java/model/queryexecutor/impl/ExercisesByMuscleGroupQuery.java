@@ -1,7 +1,7 @@
 package model.queryexecutor.impl;
 
 import controller.Controller;
-import model.queryexecutor.api.QueryExecutor;
+import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class ExercisesByMuscleGroupQuery implements QueryExecutor {
+public class ExercisesByMuscleGroupQuery implements Query {
 
     //OP-16	Mostrare gli esercizi che allenano un determinato gruppo muscolare
 

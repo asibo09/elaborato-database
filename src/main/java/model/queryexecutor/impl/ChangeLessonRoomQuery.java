@@ -1,7 +1,7 @@
 package model.queryexecutor.impl;
 
 import controller.Controller;
-import model.queryexecutor.api.QueryExecutor;
+import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import java.sql.Time;
 import java.util.Optional;
 import java.sql.ResultSet;
 
-public class ChangeLessonRoomQuery implements QueryExecutor {
+public class ChangeLessonRoomQuery implements Query {
     
     //OP-21	Spostare una lezione in un'altra sala
 

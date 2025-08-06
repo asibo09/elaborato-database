@@ -1,7 +1,7 @@
 package model.queryexecutor.impl;
 
 import controller.Controller;
-import model.queryexecutor.api.QueryExecutor;
+import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class ViewWorkoutPlanQuery implements QueryExecutor {
+public class ViewWorkoutPlanQuery implements Query {
 
     // OP-20    Visualizza una scheda di un iscritto
 

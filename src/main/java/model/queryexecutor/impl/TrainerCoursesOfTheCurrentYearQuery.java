@@ -1,7 +1,7 @@
 package model.queryexecutor.impl;
 
 import controller.Controller;
-import model.queryexecutor.api.QueryExecutor;
+import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class TrainerCoursesOfTheCurrentYearQuery implements QueryExecutor {
+public class TrainerCoursesOfTheCurrentYearQuery implements Query {
 
     //OP-15	Elenco dei corsi tenuti da un trainer in un determinato anno
 

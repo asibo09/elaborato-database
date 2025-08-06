@@ -1,11 +1,11 @@
 package model.queryexecutor.impl;
 
-import model.queryexecutor.api.QueryExecutor;
+import model.queryexecutor.api.Query;
 
 import java.sql.ResultSet;
 import java.util.Optional;
 
-public class UserMonthlyClassAttendance implements QueryExecutor {
+public class UserMonthlyClassAttendance implements Query {
 
     private final String QUERY = "SELECT * FROM Presenze_Sala_Pesi WHERE Data = ? AND CF = ?";
 

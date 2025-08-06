@@ -1,12 +1,12 @@
 package model.queryexecutor.impl;
 
 import controller.Controller;
-import model.queryexecutor.api.QueryExecutor;
+import model.queryexecutor.api.Query;
 
 import java.sql.*;
 import java.util.Optional;
 
-public class MostUsedMachinesWeekQuery implements QueryExecutor {
+public class MostUsedMachinesWeekQuery implements Query {
 
     //OP-24	Visualizza i macchinari più usati in settimana
 

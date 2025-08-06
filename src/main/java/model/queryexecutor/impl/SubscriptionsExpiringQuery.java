@@ -1,12 +1,12 @@
 package model.queryexecutor.impl;
 
 import controller.Controller;
-import model.queryexecutor.api.QueryExecutor;
+import model.queryexecutor.api.Query;
 
 import java.sql.*;
 import java.util.Optional;
 
-public class SubscriptionsExpiringQuery implements QueryExecutor {
+public class SubscriptionsExpiringQuery implements Query {
 
     //OP-23	Visualizza gli abbonamenti che scadono entro 7 giorni
 

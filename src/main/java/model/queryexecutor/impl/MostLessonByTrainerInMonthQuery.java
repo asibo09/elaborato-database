@@ -1,14 +1,14 @@
 package model.queryexecutor.impl;
 
 import controller.Controller;
-import model.queryexecutor.api.QueryExecutor;
+import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Optional;
 
-public class MostLessonByTrainerInMonthQuery implements QueryExecutor {
+public class MostLessonByTrainerInMonthQuery implements Query {
 
     //OP-25	Visualizza i trainer con più lezioni in un determinato mese
 

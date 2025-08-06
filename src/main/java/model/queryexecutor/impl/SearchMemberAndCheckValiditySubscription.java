@@ -1,7 +1,7 @@
 package model.queryexecutor.impl;
 
 import controller.Controller;
-import model.queryexecutor.api.QueryExecutor;
+import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class SearchMemberAndCheckValiditySubscription implements QueryExecutor {
+public class SearchMemberAndCheckValiditySubscription implements Query {
 
     //OP-26	Ricerca di un iscritto e visualizzare se il suo abbonamento è ancora valido
 

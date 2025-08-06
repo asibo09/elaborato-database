@@ -10,7 +10,7 @@ import javax.swing.JButton;
 
 import model.factory.api.FactoryQuery;
 import model.factory.impl.FactoryQueryImpl;
-import model.queryexecutor.api.QueryExecutor;
+import model.queryexecutor.api.Query;
 import view.BaseView;
 
 public class Persona extends BaseView {
@@ -19,7 +19,7 @@ public class Persona extends BaseView {
     ResultSet res;
     Connection conn;
     FactoryQuery factoryQuery;
-    QueryExecutor query;
+    Query query;
 
     public Persona() {
         super();

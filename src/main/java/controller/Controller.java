@@ -1,5 +1,7 @@
 package controller;
 
+import model.queryexecutor.QueryExecutor;
+
 public class Controller {
 
     public enum QueryName {
@@ -26,7 +28,15 @@ public class Controller {
         WEEKLYATTENDANCEAVGCALCULATORBYMONTH
     }
 
-    //url del database su cui si vuole eseguire il codice
-    public final static String DATABASE_URL = "jdbc:mysql://localhost:3306/gym";
-    
+    private final ManageConnection mc;
+    private final QueryExecutor qe;
+    private final BridgeCV bcv;
+
+    public Controller() throws Exception {
+        this.mc = new ManageConnection();
+        this.qe = new QueryExecutor(this.mc.getConnection());
+        this.bcv = new BridgeCV();
+    }
+
+
 }

@@ -1,12 +1,12 @@
 package model.queryexecutor.impl;
 
 import controller.Controller;
-import model.queryexecutor.api.QueryExecutor;
+import model.queryexecutor.api.Query;
 
 import java.sql.*;
 import java.util.Optional;
 
-public class LessonsOfMemberBookedInMonthQuery implements QueryExecutor {
+public class LessonsOfMemberBookedInMonthQuery implements Query {
 
     //OP-13	Elenca tutte le lezioni a cui un iscritto si è prenotato o presentato in un    determinato mese di un determinato anno
 

@@ -1,12 +1,11 @@
 package model.queryexecutor.impl;
 
-import model.queryexecutor.api.QueryExecutor;
-import controller.Controller;
+import model.queryexecutor.api.Query;
 
 import java.sql.*;
 import java.util.Optional;
 
-public class AddGymMemberQuery implements QueryExecutor {
+public class AddGymMemberQuery implements Query {
 
     //OP-1	Aggiunta di un nuovo iscritto
 
