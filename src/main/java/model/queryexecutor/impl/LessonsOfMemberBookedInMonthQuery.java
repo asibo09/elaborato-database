@@ -1,0 +1,65 @@
+package model.queryexecutor.impl;
+
+import controller.Controller;
+import model.queryexecutor.api.QueryExecutor;
+
+import java.sql.*;
+import java.util.Optional;
+
+public class LessonsOfMemberBookedInMonthQuery implements QueryExecutor {
+
+    //OP-13	Elenca tutte le lezioni a cui un iscritto si è prenotato o presentato in un    determinato mese di un determinato anno
+
+    private static final String QUERY =
+    "SELECT * " +
+    "FROM ( " +
+    "   SELECT ab.CF, pc.Data, pc.Ora, pc.Codice_Sala " +
+    "   FROM ABBONAMENTI_UTENTE ab " +
+    "   JOIN PARTECIPAZIONI_CORSO pc ON " +
+    "       ab.Data_stipulazione = pc.Data_stipulazione AND " +
+    "       ab.CF = pc.CF AND " +
+    "       ab.Tipo = pc.Tipo AND " +
+    "       ab.Durata = pc.Durata " +
+    "   WHERE ab.CF = ? " +
+    
+    "   UNION " +
+
+    "   SELECT ab.CF, pre.Data, pre.Ora, pre.Codice_Sala " +
+    "   FROM ABBONAMENTI_UTENTE ab " +
+    "   JOIN PRENOTAZIONI pre ON " +
+    "       ab.Data_stipulazione = pre.Data_stipulazione AND " +
+    "       ab.CF = pre.CF AND " +
+    "       ab.Tipo = pre.Tipo AND " +
+    "       ab.Durata = pre.Durata " +
+    "   WHERE ab.CF = ? " +
+    ") AS LezioniUtente " +
+    "WHERE MONTH(Data) = ? AND YEAR(Data) = ? " +
+    "ORDER BY Data, Ora " ;
+
+    private final String cf;
+    private final int mese;
+    private final int anno;
+
+    public LessonsOfMemberBookedInMonthQuery(String cf, int mese, int anno) {
+        this.cf = cf;
+        this.mese = mese;
+        this.anno = anno;
+    }
+
+    @Override
+    public Optional<ResultSet> execute() {
+        try {
+            Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
+            PreparedStatement statement = connection.prepareStatement(QUERY);
+            statement.setString(1, cf); //partecipazioni
+            statement.setString(2, cf); //prenotazioni
+            statement.setInt(3, mese);
+            statement.setInt(4, anno);
+            ResultSet resultSet = statement.executeQuery();
+            return Optional.of(resultSet);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return Optional.empty();
+    }
+}
