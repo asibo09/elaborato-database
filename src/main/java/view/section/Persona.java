@@ -8,9 +8,11 @@ import java.util.Optional;
 
 import javax.swing.JButton;
 
+import controller.Controller;
 import model.factory.api.FactoryQuery;
 import model.factory.impl.FactoryQueryImpl;
 import model.queryexecutor.api.Query;
+import controller.Controller.QueryName;
 import view.BaseView;
 
 public class Persona extends BaseView {
@@ -23,7 +25,7 @@ public class Persona extends BaseView {
 
     public Persona() {
         super();
-        querybutton = new JButton("Query1");
+        querybutton = new JButton(QueryName.ADDGYMMEMBER.toString());
         northWestPanel.setLayout(new BorderLayout());
         northWestPanel.add(querybutton);
         try {
