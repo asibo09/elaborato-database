@@ -2,7 +2,12 @@ package controller;
 
 import model.queryexecutor.QueryExecutor;
 
+import java.util.List;
+import java.util.Map;
+
 public class Controller {
+
+
 
     public enum QueryName {
         ADDGYMMEMBER,
@@ -33,10 +38,11 @@ public class Controller {
     private final BridgeCV bcv;
 
     public Controller() throws Exception {
-        this.mc = new ManageConnection();
-        this.qe = new QueryExecutor(this.mc.getConnection());
-        this.bcv = new BridgeCV();
+
     }
 
+    public Map<String,List<String>> executeQuery(final QueryName queryName, Map<String,String> parameters) {
+        return this.qe.executeQuery(queryName,parameters);
+    }
 
 }
