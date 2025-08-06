@@ -47,9 +47,8 @@ public class ManipulationResult {
             }
         } catch (final SQLException e) {
             throw new RuntimeException(e);
-            return java.util.Collections.emptyMap();
         }
-
+        return java.util.Collections.emptyMap();
     }
 
     public Map<String, List<String>> getManupulatedResult() {
