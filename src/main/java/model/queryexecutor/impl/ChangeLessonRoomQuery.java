@@ -94,10 +94,10 @@ public class ChangeLessonRoomQuery implements QueryExecutor {
                 conn.commit();
             } catch (SQLException e) {
                 conn.rollback();
-                throw new RuntimeException("Errore nello spostamento della lezione", e);
+                throw new RuntimeException(e);
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Errore nella connessione al database", e);
+            throw new RuntimeException(e);
         }
 
         return Optional.empty();
