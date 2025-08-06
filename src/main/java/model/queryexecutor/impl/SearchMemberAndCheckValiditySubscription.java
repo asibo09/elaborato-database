@@ -46,6 +46,5 @@ public class SearchMemberAndCheckValiditySubscription implements QueryExecutor {
         } catch(final SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.empty();
     }
 }

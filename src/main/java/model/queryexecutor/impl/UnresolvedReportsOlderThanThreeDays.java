@@ -6,28 +6,28 @@ import model.queryexecutor.api.QueryExecutor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Optional;
 
-public class SubscriptionsExpiringQuery implements QueryExecutor {
+public class UnresolvedReportsOlderThanThreeDays implements QueryExecutor {
 
-    //OP-23	Visualizza gli abbonamenti che scadono entro 7 giorni
-
+    //OP-28	Visualizza le segnalazioni non risolte da più di 3 giorni
+    
     private final String QUERY =
     "SELECT * " +
-    "FROM Abbonamenti_Utente " +
-    "WHERE DATEDIFF(DATE_ADD(Data_stipulazione, Durata), CURDATE()) <= 7 " ;
+    "FROM Storico_Segnalazioni s " +
+    "WHERE Stato = ‘Non risolto’ " +
+    "AND s.Data <= DATE_SUB(CURDATE(), INTERVAL 3 DAY) ";
 
     @Override
     public Optional<ResultSet> execute() {
-        try{
+        try {
             Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-            PreparedStatement statement = connection.preparedStatement(QUERY);
+            PreparedStatement statement = connection.prepareStatement(QUERY);
             ResultSet resultSet = statement.executeQuery();
             return Optional.of(resultSet);
-
-        } catch (final SQLException e) {
+        } catch(final SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.empty();
     }
 }

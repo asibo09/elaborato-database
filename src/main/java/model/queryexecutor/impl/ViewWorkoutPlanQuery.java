@@ -25,7 +25,7 @@ public class ViewWorkoutPlanQuery implements QueryExecutor {
     private final String CF;
 
     public ViewWorkoutPlanQuery(final String CF) {
-        this.CF = CF
+        this.CF = CF;
     }
 
 
@@ -35,7 +35,7 @@ public class ViewWorkoutPlanQuery implements QueryExecutor {
             Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY)
         ) {
-            preparedStatement.setString(1, codiceFiscale);
+            preparedStatement.setString(1, this.CF);
 
             final ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {

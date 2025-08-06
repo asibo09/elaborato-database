@@ -3,10 +3,7 @@ package model.queryexecutor.impl;
 import controller.Controller;
 import model.queryexecutor.api.QueryExecutor;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.Optional;
 
 public class MostUsedMachinesWeekQuery implements QueryExecutor {
@@ -26,7 +23,7 @@ public class MostUsedMachinesWeekQuery implements QueryExecutor {
     private final Date startDate;
     private final Date endDate;
 
-    public MostUsedMachinesWeekQuery(Date startDate, Date endDate) {
+    public MostUsedMachinesWeekQuery(final Date startDate, final Date endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -43,6 +40,5 @@ public class MostUsedMachinesWeekQuery implements QueryExecutor {
         } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.empty();
     }
 }
