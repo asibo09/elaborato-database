@@ -34,6 +34,19 @@ public class Controller {
         WEEKLYATTENDANCEAVGCALCULATORBYMONTH
     }
 
+    public enum QueryParameters {
+        CF,
+        NOME,
+        COGNOME,
+        CITTA,
+        VIA,
+        NUMEROCIVICO,
+        NUMEROTELEFONO,
+        DATANASCITA,
+        DATACONSEGNACERTIFICATOMEDICO,
+        SESSO
+    }
+
     private final ManageConnection mc;
     private final QueryExecutor qe;
     private final BridgeCV bcv;
@@ -47,7 +60,7 @@ public class Controller {
     }
 
     public Map<String,List<String>> executeQuery(final QueryName queryName, Map<String,String> parameters) {
-        return this.qe.executeQuery(queryName,parameters);
+        return null; //this.qe.executeQuery(queryName,parameters);
     }
 
     public void closeConnection() throws SQLException {

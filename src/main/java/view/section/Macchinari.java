@@ -1,9 +1,10 @@
 package view.section;
 
+import controller.BridgeCV;
 import view.BaseView;
 
 public class Macchinari extends BaseView{
-    public Macchinari(){
-        super();
+    public Macchinari(final BridgeCV bridgeCV){
+        super(bridgeCV);
     }
 }
