@@ -6,6 +6,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
+
+import controller.BridgeCV;
+
 import java.awt.BorderLayout;
 
 public class View {
@@ -24,7 +27,7 @@ public class View {
     private final JPanel trainerPanel;
     private final JPanel schedaPanel;
 
-    public View() {
+    public View(final BridgeCV bridgeCV) {
         frame = new JFrame("My Application");
         panel = new JPanel();
         menu = new JToolBar();
@@ -34,11 +37,11 @@ public class View {
         trainer = new JButton("Trainer");
         scheda = new JButton("Schede");
 
-        personaPanel = new Persona();
-        corsiPanel = new Corsi();
-        macchinariPanel = new Macchinari();
-        trainerPanel = new Trainer();
-        schedaPanel = new Scheda();
+        personaPanel = new Persona(bridgeCV);
+        corsiPanel = new Corsi(bridgeCV);
+        macchinariPanel = new Macchinari(bridgeCV);
+        trainerPanel = new Trainer(bridgeCV);
+        schedaPanel = new Scheda(bridgeCV);
 
         menu.setFloatable(false);
         menu.add(persona);

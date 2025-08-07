@@ -1,17 +1,12 @@
 package view.section;
 
 import java.awt.BorderLayout;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.*;
 
 import controller.BridgeCV;
-import model.factory.api.FactoryQuery;
-import model.queryexecutor.api.Query;
 import controller.Controller.QueryName;
+import controller.Controller.QueryParameters;
 import view.BaseView;
 
 public class Persona extends BaseView {
@@ -25,35 +20,9 @@ public class Persona extends BaseView {
     private final JButton subscriptionsExpiringButton;
     private final JButton subscriptionVerificationAndAttendanceRegistrationButton;
     private final JButton weeklyAttendanceAVGCalculatorByMonthButton;
-    private final JButton executeButton;
-
-    //ogni area e associata ad una stringa che la identifica univocamente e che poi passo come parametri al bridgeCV
-    private final Map<String,JTextArea> parameters;
-    private Map<String,String> resultMap;
-
-    //pattern Command. The bridge is the command.
-    private final BridgeCV bridgeCV;
 
     public Persona(final BridgeCV bridgeCV) {
-        super();
-
-        this.parameters = new HashMap<>();
-        this.bridgeCV = bridgeCV;
-        this.executeButton = new JButton("Execute");
-        this.executeButton.addActionListener(e -> {
-            final Map<String,String> newParametersMap = this.parameters.entrySet().stream()
-                    .collect(HashMap<String,String>::new,
-                            (r,m) ->{
-                                final String content = m.getValue().getText();
-                                r.put(m.getKey(),content);
-                    },
-                            (om,nm) -> {
-                                nm.putAll(om);
-                    });
-            this.bridgeCV.executeQuery(newParametersMap);
-        });
-
-        northWestPanel.setLayout(new BorderLayout());
+        super(bridgeCV);
 
         this.addGymMemberButton = new JButton(QueryName.ADDGYMMEMBER.toString());
         northWestPanel.add(this.addGymMemberButton);
@@ -74,8 +43,30 @@ public class Persona extends BaseView {
         this.weeklyAttendanceAVGCalculatorByMonthButton = new JButton(QueryName.WEEKLYATTENDANCEAVGCALCULATORBYMONTH.toString());
         northWestPanel.add(this.weeklyAttendanceAVGCalculatorByMonthButton);
 
+        //aggiungo i bottoni per selezionare la query al pannello superiore di sinistra 
+        this.northWestPanel.add(addGymMemberButton);
+        this.northWestPanel.add(dailyWeightRoomAttendanceButton);
+        this.northWestPanel.add(lessonsOfMemberBookedInMonthButton);
+        this.northWestPanel.add(memberWeeklyAttendanceButton);
+        this.northWestPanel.add(registerSubscriptionButton);
+        this.northWestPanel.add(searchMemberAndCheckValiditySubscriptionButton);
+        this.northWestPanel.add(subscriptionsExpiringButton);
+        this.northWestPanel.add(subscriptionVerificationAndAttendanceRegistrationButton);
+        this.northWestPanel.add(weeklyAttendanceAVGCalculatorByMonthButton);
+
         this.addGymMemberButton.addActionListener(e -> {
+            this.southCenterPanel.removeAll();
             this.bridgeCV.setQueryName(QueryName.ADDGYMMEMBER);
+            this.southCenterPanel.add(parameters.get(QueryParameters.CF.toString()));
+            this.southCenterPanel.add(parameters.get(QueryParameters.CITTA.toString()));
+            this.southCenterPanel.add(parameters.get(QueryParameters.COGNOME.toString()));
+            this.southCenterPanel.add(parameters.get(QueryParameters.DATACONSEGNACERTIFICATOMEDICO.toString()));
+            this.southCenterPanel.add(parameters.get(QueryParameters.DATANASCITA.toString()));
+            this.southCenterPanel.add(parameters.get(QueryParameters.NOME.toString()));
+            this.southCenterPanel.add(parameters.get(QueryParameters.NUMEROCIVICO.toString()));
+            this.southCenterPanel.add(parameters.get(QueryParameters.NUMEROTELEFONO.toString()));
+            this.southCenterPanel.add(parameters.get(QueryParameters.SESSO.toString()));
+            this.southCenterPanel.add(parameters.get(QueryParameters.VIA.toString()));
         });
         this.dailyWeightRoomAttendanceButton.addActionListener(e -> {
             this.bridgeCV.setQueryName(QueryName.DAILYWEIGTHROOMATTENDANCE);
