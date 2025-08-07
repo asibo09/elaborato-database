@@ -29,14 +29,10 @@ public class Persona extends BaseView {
 
     //ogni area e associata ad una stringa che la identifica univocamente e che poi passo come parametri al bridgeCV
     private final Map<String,JTextArea> parameters;
-
+    private Map<String,String> resultMap;
 
     //pattern Command. The bridge is the command.
     private final BridgeCV bridgeCV;
-    ResultSet res;
-    Connection conn;
-    FactoryQuery factoryQuery;
-    Query query;
 
     public Persona(final BridgeCV bridgeCV) {
         super();
