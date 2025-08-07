@@ -29,26 +29,28 @@ public class SubscriptionVerificationAndAttendanceRegistration implements Query 
 
     private final String nome;
     private final String cognome;
-    private final java.sql.Date dataStipulazione;
-    private final String tipo;
-    private final java.sql.Time durata;
-    private final String cf;
+    private java.sql.Date dataStipulazione;
+    private String tipo;
+    private java.sql.Time durata;
+    private String cf;
     private final java.sql.Date data;
     private final java.sql.Time ora;
+    private final Connection connection;
 
     public SubscriptionVerificationAndAttendanceRegistration(
             final String nome,
             final String cognome,
             final java.sql.Date data,
-            final java.sql.Time ora
+            final java.sql.Time ora,
+            final Connection connection
     ) {
         this.nome = nome;
         this.cognome = cognome;
         this.data = data;
         this.ora = ora;
+        this.connection = connection;
         try(
-                Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM abbonamenti_utente" +
+                PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM abbonamenti_utente" +
                                 "WHERE CF = (" +
                                 "    SELECT CF" +
                                 "    FROM ISCRITTI" +
@@ -58,8 +60,8 @@ public class SubscriptionVerificationAndAttendanceRegistration implements Query 
                                 ")" +
                                 "AND Tipo_abbonamento = \"Sala Pesi\"")
                 ){
-            preparedStatement.setString(1, nome);
-            preparedStatement.setString(2, cognome);
+            preparedStatement.setString(1, this.nome);
+            preparedStatement.setString(2, this.cognome);
             final ResultSet subscription = preparedStatement.executeQuery();
             if(subscription.next()){
                 this.dataStipulazione = subscription.getDate("Data_stipulazione");
@@ -67,7 +69,7 @@ public class SubscriptionVerificationAndAttendanceRegistration implements Query 
                 this.durata = subscription.getTime("Durata");
                 this.cf = subscription.getString("CF");
             } else {
-                throw new RuntimeException("Abbonamento non trovato");
+                System.out.println("Abbonamento non trovato");
             }
         } catch (final SQLException e) {
             throw new RuntimeException(e);
@@ -82,11 +84,10 @@ public class SubscriptionVerificationAndAttendanceRegistration implements Query 
      */
     private boolean verifySubscription() {
         try(
-                Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-                PreparedStatement preparedStatement = connection.prepareStatement(this.VERIFY_QUERY);
+                PreparedStatement preparedStatement = this.connection.prepareStatement(this.VERIFY_QUERY);
                 ){
-            preparedStatement.setString(1, nome);
-            preparedStatement.setString(2, cognome);
+            preparedStatement.setString(1, this.nome);
+            preparedStatement.setString(2, this.cognome);
             final ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 return true;
@@ -102,15 +103,14 @@ public class SubscriptionVerificationAndAttendanceRegistration implements Query 
     public Optional<ResultSet> execute() {
         if (verifySubscription()) {
             try(
-                    Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-                    PreparedStatement preparedStatement = connection.prepareStatement(this.REGISTER_ATTENDANCE_QUERY);
+                    PreparedStatement preparedStatement = this.connection.prepareStatement(this.REGISTER_ATTENDANCE_QUERY);
                     ){
-                preparedStatement.setDate(1, dataStipulazione);
-                preparedStatement.setString(2, tipo);
-                preparedStatement.setTime(3, durata);
-                preparedStatement.setString(4, cf);
-                preparedStatement.setDate(5, data);
-                preparedStatement.setTime(6, ora);
+                preparedStatement.setDate(1, this.dataStipulazione);
+                preparedStatement.setString(2, this.tipo);
+                preparedStatement.setTime(3, this.durata);
+                preparedStatement.setString(4, this.cf);
+                preparedStatement.setDate(5, this.data);
+                preparedStatement.setTime(6, this.ora);
                 preparedStatement.executeUpdate();
             } catch (final SQLException e) {
                 throw new RuntimeException(e);

@@ -26,25 +26,35 @@ public class SearchMemberAndCheckValiditySubscription implements Query {
     private final String nome;
     private final String cognome;
     private final Date dataNascita;
+    private final Connection connection;
 
-    public SearchMemberAndCheckValiditySubscription(String nome, String cognome, Date dataNascita) {
+    public SearchMemberAndCheckValiditySubscription(
+            final String nome,
+            final  String cognome,
+            final Date dataNascita,
+            final Connection connection
+    ) {
         this.nome = nome;
         this.cognome = cognome;
         this.dataNascita = dataNascita;
+        this.connection = connection;
     }
 
     @Override
     public Optional<ResultSet> execute() {
-        try{
-            Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-            PreparedStatement statement = connection.prepareStatement(QUERY);
+        try (
+                PreparedStatement statement = this.connection.prepareStatement(QUERY);
+        ){
             statement.setString(1, nome);
             statement.setString(2, cognome);
             statement.setDate(3, dataNascita);
-            ResultSet resultSet = statement.executeQuery();
-            return Optional.of(resultSet);
+            final ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()) {
+                return Optional.of(resultSet);
+            }
         } catch(final SQLException e) {
             throw new RuntimeException(e);
         }
+        return Optional.empty();
     }
 }

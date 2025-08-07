@@ -23,17 +23,18 @@ public class ViewWorkoutPlanQuery implements Query {
     "ORDER BY M.Posizione" ;
 
     private final String CF;
+    private final Connection connection;
 
-    public ViewWorkoutPlanQuery(final String CF) {
+    public ViewWorkoutPlanQuery(final String CF, final Connection connection) {
         this.CF = CF;
+        this.connection = connection;
     }
 
 
     @Override
     public Optional<ResultSet> execute() {
         try (
-            Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERY)
+            PreparedStatement preparedStatement = this.connection.prepareStatement(QUERY)
         ) {
             preparedStatement.setString(1, this.CF);
 

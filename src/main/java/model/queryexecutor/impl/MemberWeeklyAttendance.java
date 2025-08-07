@@ -27,22 +27,26 @@ public class MemberWeeklyAttendance implements Query {
 
     private final String nome;
     private final String cognome;
+    private final Connection connection;
 
-    public MemberWeeklyAttendance(String nome, String cognome) {
+    public MemberWeeklyAttendance(final String nome, final String cognome, final Connection connection) {
         this.nome = nome;
         this.cognome = cognome;
+        this.connection = connection;
     }
 
     @Override
     public Optional<ResultSet> execute() {
-        try {
-            Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-            PreparedStatement statement = connection.prepareStatement(QUERY);
+        try (
+                PreparedStatement statement = connection.prepareStatement(QUERY);
+                ){
             statement.setString(1, nome);
             statement.setString(2, cognome);
-            ResultSet resultSet = statement.executeQuery();
-            return Option.of(resultSet);
-        } catch (SQLException e) {
+            final ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()) {
+                return Optional.of(resultSet);
+            }
+        } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
         return Optional.empty();

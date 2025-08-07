@@ -18,16 +18,24 @@ public class UnresolvedReportsOlderThanThreeDays implements Query {
     "FROM Storico_Segnalazioni s " +
     "WHERE Stato = ‘Non risolto’ " +
     "AND s.Data <= DATE_SUB(CURDATE(), INTERVAL 3 DAY) ";
+    private final Connection connection;
+
+    public UnresolvedReportsOlderThanThreeDays(final Connection connection) {
+        this.connection = connection;
+    }
 
     @Override
     public Optional<ResultSet> execute() {
-        try {
-            Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-            PreparedStatement statement = connection.prepareStatement(QUERY);
-            ResultSet resultSet = statement.executeQuery();
-            return Optional.of(resultSet);
+        try (
+                PreparedStatement statement = this.connection.prepareStatement(QUERY);
+                ) {
+            final ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()) {
+                return Optional.of(resultSet);
+            }
         } catch(final SQLException e) {
             throw new RuntimeException(e);
         }
+        return Optional.empty();
     }
 }

@@ -70,7 +70,6 @@ public class AddGymMemberQuery implements Query {
 
             // Esegue la query
             preparedStatement.executeUpdate();
-
             // Non ci aspettiamo un ResultSet per un'operazione INSERT, quindi restituiamo null
             return Optional.empty();
 

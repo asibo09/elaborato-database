@@ -17,16 +17,17 @@ public class WeeklyAttendanceAVGCalculatorByMonthQuery implements Query {
             "FROM Presenze_Sala_Pesi" +
             "WHERE MONTH(Data) = ?";
     private final java.sql.Date month;
+    private final Connection connection;
 
-    public WeeklyAttendanceAVGCalculatorByMonthQuery(final java.sql.Date month) {
+    public WeeklyAttendanceAVGCalculatorByMonthQuery(final java.sql.Date month, final Connection connection) {
         this.month = month;
+        this.connection = connection;
     }
 
     @Override
     public Optional<ResultSet> execute() {
         try (
-                Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-                PreparedStatement preparedStatement = connection.prepareStatement(QUERY);
+                PreparedStatement preparedStatement = this.connection.prepareStatement(QUERY);
                 ) {
             preparedStatement.setDate(1, this.month);
             final ResultSet resultSet = preparedStatement.executeQuery();

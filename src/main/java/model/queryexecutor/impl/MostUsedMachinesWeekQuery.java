@@ -22,23 +22,29 @@ public class MostUsedMachinesWeekQuery implements Query {
 
     private final Date startDate;
     private final Date endDate;
+    private final Connection connection;
 
-    public MostUsedMachinesWeekQuery(final Date startDate, final Date endDate) {
+    public MostUsedMachinesWeekQuery(final Date startDate, final Date endDate, final Connection connection) {
         this.startDate = startDate;
         this.endDate = endDate;
+        this.connection = connection;
     }
 
     @Override
     public Optional<ResultSet> execute() {
-        try {
-            Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-            PreparedStatement statement = connection.prepareStatement(QUERY);
+        try (
+                PreparedStatement statement = connection.prepareStatement(QUERY);
+
+        ){
             statement.setDate(1, startDate);
             statement.setDate(2, endDate);
-            ResultSet resultSet = statement.executeQuery();
-            return Optional.of(resultSet);
+            final ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()) {
+                return Optional.of(resultSet);
+            }
         } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
+        return Optional.empty();
     }
 }

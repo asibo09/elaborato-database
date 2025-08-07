@@ -39,25 +39,29 @@ public class LessonsOfMemberBookedInMonthQuery implements Query {
     private final String cf;
     private final int mese;
     private final int anno;
+    private final Connection connection;
 
-    public LessonsOfMemberBookedInMonthQuery(String cf, int mese, int anno) {
+        public LessonsOfMemberBookedInMonthQuery(final String cf, final  int mese, final int anno, final Connection conn) {
         this.cf = cf;
         this.mese = mese;
         this.anno = anno;
+        this.connection = conn;
     }
 
     @Override
     public Optional<ResultSet> execute() {
-        try {
-            Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-            PreparedStatement statement = connection.prepareStatement(QUERY);
+        try (
+                PreparedStatement statement = connection.prepareStatement(QUERY);
+                ){
             statement.setString(1, cf); //partecipazioni
             statement.setString(2, cf); //prenotazioni
             statement.setInt(3, mese);
             statement.setInt(4, anno);
-            ResultSet resultSet = statement.executeQuery();
-            return Optional.of(resultSet);
-        } catch (SQLException e) {
+            final ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()) {
+                return Optional.of(resultSet);
+            }
+        } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
         return Optional.empty();

@@ -20,16 +20,17 @@ public class DailyWeightRoomAttendanceQuery implements Query {
             "GROUP BY I.CF, I.Nome, I.Cognome, P.Data, P.Ora" +
             "ORDER BY P.Ora";
     private final java.sql.Date date;
+    private final Connection connection;
 
-    public DailyWeightRoomAttendanceQuery(final java.sql.Date date) {
+    public DailyWeightRoomAttendanceQuery(final Connection connection, final java.sql.Date date) {
+        this.connection = connection;
         this.date = date;
     }
 
     @Override
     public Optional<ResultSet> execute() {
         try (
-                Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-                PreparedStatement preparedStatement = connection.prepareStatement(this.QUERY);
+                PreparedStatement preparedStatement = this.connection.prepareStatement(this.QUERY);
                 ) {
             preparedStatement.setDate(1, this.date);
             final ResultSet resultSet = preparedStatement.executeQuery();

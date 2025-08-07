@@ -6,6 +6,7 @@ import model.queryexecutor.api.Query;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class MostLessonByTrainerInMonthQuery implements Query {
@@ -19,15 +20,22 @@ public class MostLessonByTrainerInMonthQuery implements Query {
     "AND ed.Data_Inizio = l.Data_Inizio " +
     "AND ed.Nome = l.nome " +
     "GROUP BY t.CF, t.Nome, t.Cognome " +
-    "ORDER BY COUNT(t.CF) DESC " ;
+    "ORDER BY COUNT(t.CF) DESC ";
+    private final Connection connection;
+
+    public MostLessonByTrainerInMonthQuery(final Connection connection) {
+        this.connection = connection;
+    }
 
     @Override
     public Optional<ResultSet> execute() {
-        try{
-            Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-            PreparedStatement statement = connection.prepareStatement(QUERY);
-            ResultSet resultSet = statement.executeQuery();
-            return Optional.of(resultSet);
+        try(
+                PreparedStatement statement = connection.prepareStatement(QUERY)
+                ){
+            final ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()) {
+                return Optional.of(resultSet);
+            }
         } catch (final SQLException e) {
             throw new RuntimeException(e);
         }

@@ -19,35 +19,35 @@ public class RegisterSubscriptionQuery implements Query {
     private final String tipo;
     private final java.sql.Time durata;
     private final String cf;
+    private final Connection connection;
 
     public RegisterSubscriptionQuery(
             final String dataStipulazione,
             final String tipo,
             final java.sql.Time durata,
-            final String cf
+            final String cf,
+            final Connection connection
     ) {
         this.dataStipulazione = dataStipulazione;
         this.tipo = tipo;
         this.durata = durata;
         this.cf = cf;
+        this.connection = connection;
     }
 
     @Override
     public Optional<ResultSet> execute() {
         try (
-                Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
                 PreparedStatement preparedStatement = connection.prepareStatement(this.QUERY)
                 ){
             preparedStatement.setString(1, dataStipulazione);
             preparedStatement.setString(2, tipo);
             preparedStatement.setTime(3, durata);
             preparedStatement.setString(4, cf);
-
             preparedStatement.executeUpdate();
-            return Optional.empty();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return Optional.empty();
+        } catch (final SQLException e) {
+            e.printStackTrace();;
         }
+        return Optional.empty();
     }
 }

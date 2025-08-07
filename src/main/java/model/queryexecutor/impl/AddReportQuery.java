@@ -22,8 +22,10 @@ public class AddReportQuery implements Query {
     private final String description;
     private final int machineId;
     private final String machineName;
+    private final Connection connection;
 
     public AddReportQuery(
+            final Connection connection,
             final String numeroSegnalazione,
             final java.sql.Date date,
             final java.sql.Time time,
@@ -32,6 +34,7 @@ public class AddReportQuery implements Query {
             final int machineId,
             final String machineName
     ) {
+        this.connection = connection;
         this.numeroSegnalazione = numeroSegnalazione;
         this.date = date;
         this.time = time;
@@ -44,7 +47,6 @@ public class AddReportQuery implements Query {
     @Override
     public Optional<ResultSet> execute() {
         try (
-                Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
                 PreparedStatement preparedStatement = connection.prepareStatement(this.QUERY);
                 ){
             preparedStatement.setString(1, numeroSegnalazione);

@@ -45,8 +45,16 @@ public class ChangeLessonRoomQuery implements Query {
     private final Time ora;
     private final String vecchiaSala;
     private final String nuovaSala;
+    private final Connection conn;
 
-    public ChangeLessonRoomQuery(Date data, Time ora, String vecchiaSala, String nuovaSala) {
+    public ChangeLessonRoomQuery(
+            final Connection connection,
+            final Date data,
+            final Time ora,
+            final String vecchiaSala,
+            final String nuovaSala
+    ) {
+        this.conn = connection;
         this.data = data;
         this.ora = ora;
         this.vecchiaSala = vecchiaSala;
@@ -55,7 +63,7 @@ public class ChangeLessonRoomQuery implements Query {
 
     @Override
     public Optional<ResultSet> execute() {
-        try (Connection conn = java.sql.DriverManager.getConnection(Controller.DATABASE_URL)) {
+        try {
             conn.setAutoCommit(false);
 
             try (
@@ -92,11 +100,11 @@ public class ChangeLessonRoomQuery implements Query {
                 deleteLezione.executeUpdate();
 
                 conn.commit();
-            } catch (SQLException e) {
+            } catch (final SQLException e) {
                 conn.rollback();
                 throw new RuntimeException(e);
             }
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
 

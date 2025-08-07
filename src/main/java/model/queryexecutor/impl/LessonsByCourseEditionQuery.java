@@ -21,21 +21,22 @@ public class LessonsByCourseEditionQuery implements Query {
             "AND E.Data_inizio = ?";
     private final String courseName;
     private final java.sql.Date courseDate;
+    private final Connection connection;
 
-    public LessonsByCourseEditionQuery(final String courseName, final java.sql.Date courseDate) {
+    public LessonsByCourseEditionQuery(final String courseName, final java.sql.Date courseDate, final Connection connection) {
         this.courseName = courseName;
         this.courseDate = courseDate;
+        this.connection = connection;
     }
 
     @Override
     public Optional<ResultSet> execute() {
         try(
-                Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-                PreparedStatement preparedStatement = connection.prepareStatement(QUERY);
+                PreparedStatement preparedStatement = this.connection.prepareStatement(QUERY);
                 ) {
             preparedStatement.setString(1,this.courseName);
             preparedStatement.setDate(2,this.courseDate);
-            final ResultSet resultSet = prepareStatement.executeQuery();
+            final ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) {
                 return Optional.of(resultSet);
             }

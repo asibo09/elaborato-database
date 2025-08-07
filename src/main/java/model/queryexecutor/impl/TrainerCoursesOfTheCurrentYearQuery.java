@@ -24,19 +24,20 @@ public class TrainerCoursesOfTheCurrentYearQuery implements Query {
             "And DATEDIFF(CURDATE(), Data_inizio) < 365";
     private final String name;
     private final String surname;
+    private final Connection connection;
 
-    public TrainerCoursesOfTheCurrentYearQuery(final String name, final String surname) {
+    public TrainerCoursesOfTheCurrentYearQuery(final String name, final String surname, final Connection connection) {
         this.name = name;
         this.surname = surname;
+        this.connection = connection;
     }
 
     private String getTrainerCf() {
         try(
-                Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-                PreparedStatement preparedStatement = connection.prepareStatement(TRAINER_CF_QUERY);
+                PreparedStatement preparedStatement = this.connection.prepareStatement(TRAINER_CF_QUERY);
                 ) {
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, surname);
+            preparedStatement.setString(1, this.name);
+            preparedStatement.setString(2, this.surname);
             final ResultSet trainerCfRes = preparedStatement.executeQuery();
             final String trainerCf;
             if(trainerCfRes.next()) {
@@ -54,8 +55,7 @@ public class TrainerCoursesOfTheCurrentYearQuery implements Query {
         final String trainerCf = getTrainerCf();
         if(!trainerCf.isBlank()) {
             try(
-                    Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-                    PreparedStatement preparedStatement = connection.prepareStatement(QUERY);
+                    PreparedStatement preparedStatement = this.connection.prepareStatement(QUERY);
                     ) {
                 preparedStatement.setString(1, trainerCf);
                 final ResultSet resultSet = preparedStatement.executeQuery();

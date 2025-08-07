@@ -19,16 +19,17 @@ public class ExercisesByMuscleGroupQuery implements Query {
             "AND a.Nome_Muscolo = g.Nome_Muscolo" +
             "AND g.Nome_Muscolo = ?";
     private final String muscleGroupName;
+    private Connection connection;
 
-    public ExercisesByMuscleGroupQuery(final String muscleGroupName) {
+    public ExercisesByMuscleGroupQuery(final Connection connection, final String muscleGroupName) {
+        this.connection = connection;
         this.muscleGroupName = muscleGroupName;
     }
 
     @Override
     public Optional<ResultSet> execute() {
         try(
-                Connection connection = java.sql.DriverManager.getConnection(Controller.DATABASE_URL);
-                PreparedStatement preparedStatement = connection.prepareStatement(QUERY)
+                PreparedStatement preparedStatement = this.connection.prepareStatement(QUERY)
                 ) {
             preparedStatement.setString(1, this.muscleGroupName);
             final ResultSet resultSet = preparedStatement.executeQuery();
