@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class ManageConnection {
 
-    private final String url = "jdbc:mysql://localhost:3306/gym";
+    private final String url = "jdbc:mariadb://localhost:3306/Palestra";
     private final Connection connection;
 
     public ManageConnection() throws SQLException {

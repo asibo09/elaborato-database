@@ -5,6 +5,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import controller.BridgeCV;
@@ -33,6 +34,8 @@ public class BaseView extends JPanel {
 
     // pattern Command. The bridge is the command.
     protected final BridgeCV bridgeCV;
+
+    private final JTextArea resultArea;
 
     public BaseView(final BridgeCV bridgeCV) {
         this.setLayout(new BorderLayout());
@@ -63,14 +66,14 @@ public class BaseView extends JPanel {
         splitPaneWestSouthNorth.setEnabled(false);
         splitPaneWestSouthNorth.setDividerSize(0);
 
-        westPanel.add(splitPaneWestSouthNorth);
         this.add(splitPaneEstWest, BorderLayout.CENTER);
+        westPanel.add(splitPaneWestSouthNorth);
 
         //layout pannello a sinistra nord
         this.northWestPanel.setLayout(new GridLayout(7,0));
 
-        this.executeButton = new JButton("Execute");
         this.southWestPanel.setLayout(new BorderLayout());
+        this.executeButton = new JButton("Execute");
         this.southWestPanel.add(executeButton, BorderLayout.SOUTH);
 
         //layout pannello a sinistra sud centro
@@ -84,6 +87,13 @@ public class BaseView extends JPanel {
             parameters.put(param.toString(), new JTextArea(param.toString()));
         }
 
+        // Pannello per mostrare la resultMap
+        resultArea = new JTextArea();
+        resultArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(resultArea);
+        estPanel.setLayout(new BorderLayout());
+        estPanel.add(scrollPane, BorderLayout.CENTER);
+
         this.executeButton.addActionListener(e -> {
             final Map<String, String> newParametersMap = this.parameters.entrySet().stream()
                     .collect(HashMap<String, String>::new,
@@ -95,6 +105,17 @@ public class BaseView extends JPanel {
                                 nm.putAll(om);
                             });
             this.resultMap = this.bridgeCV.executeQuery(newParametersMap);
+
+            // Stampa la resultMap nel pannello estPanel
+            if (resultMap != null) {
+                StringBuilder sb = new StringBuilder();
+                for (Map.Entry<String, List<String>> entry : resultMap.entrySet()) {
+                    sb.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+                }
+                resultArea.setText(sb.toString());
+            } else {
+                resultArea.setText("Nessun risultato.");
+            }
         });
     }
 }

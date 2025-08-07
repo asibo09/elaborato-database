@@ -2,10 +2,13 @@ package model.queryexecutor;
 
 import controller.Controller;
 import controller.Controller.QueryName;
+import controller.Controller.QueryParameters;
 import model.factory.impl.FactoryQueryImpl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -23,35 +26,20 @@ public class QueryExecutor {
         switch (queryName) {
             case ADDGYMMEMBER:
                 this.resultSet = this.factoryQuery.createAddGymMemberQuery(
-                        parameters.get("CF"),
-                        parameters.get("Nome"),
-                        parameters.get("Cognome"),
-                        parameters.get("Citta"),
-                        parameters.get("Via"),
-                        Integer.parseInt(parameters.get("NumeroCivico")),
-                        parameters.get("Sesso").charAt(0),
-                        java.sql.Date.valueOf(parameters.get("DataNascita")),
-                        java.sql.Date.valueOf(parameters.get("DataConsegna")),
-                        parameters.get("NumeroTelefono")
+                        parameters.get(QueryParameters.CF.toString()),
+                        parameters.get(QueryParameters.NOME.toString()),
+                        parameters.get(QueryParameters.COGNOME.toString()),
+                        parameters.get(QueryParameters.CITTA.toString()),
+                        parameters.get(QueryParameters.VIA.toString()),
+                        Integer.parseInt(parameters.get(QueryParameters.NUMEROCIVICO.toString())),
+                        parameters.get(QueryParameters.SESSO.toString()).charAt(0),
+                        java.sql.Date.valueOf(parameters.get(QueryParameters.DATANASCITA.toString())),
+                        java.sql.Date.valueOf(parameters.get(QueryParameters.DATACONSEGNACERTIFICATOMEDICO.toString())),
+                        parameters.get(QueryParameters.NUMEROTELEFONO.toString())
                 ).execute();
-                return new ManipulationResult(this.resultSet).getManupulatedResult();
-                break;
-
+                new ManipulationResult(this.resultSet).getManupulatedResult();
             case ADDREPORTQUERY:
-                System.out.println("Eseguendo l'operazione ADDREPORTQUERY...");
-                this.factoryQuery.createAddReportQuery(parameters.get("ReportData")).execute();
-                break;
-
             case CHANGELESSONROOM:
-                System.out.println("Eseguendo l'operazione CHANGELESSONROOM...");
-                this.factoryQuery.createChangeLessonRoomQuery(
-                        java.sql.Date.valueOf(parameters.get("Data")),
-                        java.sql.Time.valueOf(parameters.get("Ora")),
-                        parameters.get("SalaVecchia"),
-                        parameters.get("SalaNuova")
-                ).execute();
-                break;
-
             case DAILYWEIGTHROOMATTENDANCE:
                 System.out.println("Eseguendo l'operazione DAILYWEIGTHROOMATTENDANCE...");
                 // Logica specifica
@@ -78,10 +66,8 @@ public class QueryExecutor {
                 break;
 
             case MEMBERWEEKLYATTENDANCE:
-                System.out.println("Eseguendo l'operazione MEMBERWEEKLYATTENDANCE...");
-                // Logica specifica
-                break;
-
+                this.resultSet = this.factoryQuery.MemberWeeklyAttendance(parameters.get(QueryParameters.NOME.toString()),parameters.get(QueryParameters.COGNOME.toString())).execute();
+                return new ManipulationResult(this.resultSet).getManupulatedResult();
             case MEMBERWORKOUTPLANVIEWER:
                 System.out.println("Eseguendo l'operazione MEMBERWORKOUTPLANVIEWER...");
                 // Logica specifica

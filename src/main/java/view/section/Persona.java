@@ -1,7 +1,5 @@
 package view.section;
 
-import java.awt.BorderLayout;
-
 import javax.swing.*;
 
 import controller.BridgeCV;
@@ -43,17 +41,6 @@ public class Persona extends BaseView {
         this.weeklyAttendanceAVGCalculatorByMonthButton = new JButton(QueryName.WEEKLYATTENDANCEAVGCALCULATORBYMONTH.toString());
         northWestPanel.add(this.weeklyAttendanceAVGCalculatorByMonthButton);
 
-        //aggiungo i bottoni per selezionare la query al pannello superiore di sinistra 
-        this.northWestPanel.add(addGymMemberButton);
-        this.northWestPanel.add(dailyWeightRoomAttendanceButton);
-        this.northWestPanel.add(lessonsOfMemberBookedInMonthButton);
-        this.northWestPanel.add(memberWeeklyAttendanceButton);
-        this.northWestPanel.add(registerSubscriptionButton);
-        this.northWestPanel.add(searchMemberAndCheckValiditySubscriptionButton);
-        this.northWestPanel.add(subscriptionsExpiringButton);
-        this.northWestPanel.add(subscriptionVerificationAndAttendanceRegistrationButton);
-        this.northWestPanel.add(weeklyAttendanceAVGCalculatorByMonthButton);
-
         this.addGymMemberButton.addActionListener(e -> {
             this.southCenterPanel.removeAll();
             this.bridgeCV.setQueryName(QueryName.ADDGYMMEMBER);
@@ -67,6 +54,7 @@ public class Persona extends BaseView {
             this.southCenterPanel.add(parameters.get(QueryParameters.NUMEROTELEFONO.toString()));
             this.southCenterPanel.add(parameters.get(QueryParameters.SESSO.toString()));
             this.southCenterPanel.add(parameters.get(QueryParameters.VIA.toString()));
+            repaintSouthWestCenter();
         });
         this.dailyWeightRoomAttendanceButton.addActionListener(e -> {
             this.bridgeCV.setQueryName(QueryName.DAILYWEIGTHROOMATTENDANCE);
@@ -76,6 +64,9 @@ public class Persona extends BaseView {
         });
         this.memberWeeklyAttendanceButton.addActionListener(e -> {
             this.bridgeCV.setQueryName(QueryName.MEMBERWEEKLYATTENDANCE);
+            this.southCenterPanel.add(parameters.get(QueryParameters.NOME.toString()));
+            this.southCenterPanel.add(parameters.get(QueryParameters.COGNOME.toString()));
+            repaintSouthWestCenter();
         });
         this.registerSubscriptionButton.addActionListener(e -> {
             this.bridgeCV.setQueryName(QueryName.REGISTERSUBSCRIPTION);
@@ -93,5 +84,10 @@ public class Persona extends BaseView {
             this.bridgeCV.setQueryName(QueryName.WEEKLYATTENDANCEAVGCALCULATORBYMONTH);
         });
 
+    }
+
+    private void repaintSouthWestCenter() {
+        this.southCenterPanel.revalidate();
+        this.southCenterPanel.repaint();
     }
 }

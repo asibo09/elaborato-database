@@ -1,6 +1,7 @@
 package controller;
 
 import model.queryexecutor.QueryExecutor;
+import view.View;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -51,16 +52,18 @@ public class Controller {
     private final QueryExecutor qe;
     private final BridgeCV bcv;
     private final ManageConnection manageConnection;
+    private final View view;
 
-    public Controller(ManageConnection mc, QueryExecutor qe, BridgeCV bcv) throws Exception {
-        this.mc = mc;
-        this.qe = qe;
-        this.bcv = bcv;
+    public Controller() throws Exception {
+        this.mc = new ManageConnection();
+        this.qe = new QueryExecutor(mc.getConnection());
+        this.bcv = new BridgeCV(this);
         this.manageConnection = new ManageConnection();
+        this.view = new View(bcv);
     }
 
     public Map<String,List<String>> executeQuery(final QueryName queryName, Map<String,String> parameters) {
-        return null; //this.qe.executeQuery(queryName,parameters);
+        return this.qe.executeQuery(queryName,parameters);
     }
 
     public void closeConnection() throws SQLException {
