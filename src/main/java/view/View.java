@@ -10,6 +10,7 @@ import javax.swing.JToolBar;
 import controller.BridgeCV;
 
 import java.awt.BorderLayout;
+import java.awt.Toolkit;
 
 public class View {
 
@@ -55,7 +56,7 @@ public class View {
         frame.add(panel, BorderLayout.CENTER);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
+        sizer();
         frame.setVisible(true);
 
         persona.addActionListener(e -> {
@@ -97,5 +98,12 @@ public class View {
             frame.revalidate();
             frame.repaint();
         });
+    }
+
+    private void sizer(){
+
+        int height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2;
+        int width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2;
+        this.frame.setSize(width, height);
     }
 }
