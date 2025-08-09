@@ -53,9 +53,6 @@ public class BaseView extends JPanel {
 
         this.add(splitPaneEstWest, BorderLayout.CENTER);
 
-        // layout pannello a sinistra nord
-        this.northWestPanel.setLayout(new GridLayout(9, 0));
-
         this.southWestPanel.setLayout(new BorderLayout());
         this.executeButton = new JButton("Execute");
         this.executeButton.setBackground(Color.WHITE);

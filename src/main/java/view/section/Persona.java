@@ -22,17 +22,18 @@ public class Persona extends BaseView {
 
     public Persona(final BridgeCV bridgeCV) {
         super(bridgeCV);
+        this.northWestPanel.setLayout(new GridLayout(9, 0));
 
         // Creazione bottoni
-        this.addGymMemberButton = new JButton("Add gym member");
-        this.dailyWeightRoomAttendanceButton = new JButton("Daily weight room attendance");
-        this.lessonsOfMemberBookedInMonthButton = new JButton("Lessons of member booked in month");
-        this.memberWeeklyAttendanceButton = new JButton("Member weekly attendance");
-        this.registerSubscriptionButton = new JButton("Register subscription");
-        this.searchMemberAndCheckValiditySubscriptionButton = new JButton("Search member and check validity subscription");
-        this.subscriptionsExpiringButton = new JButton("Subscriptions expiring");
-        this.subscriptionVerificationAndAttendanceRegistrationButton = new JButton("Subscription verification and attendance registration");
-        this.weeklyAttendanceAVGCalculatorByMonthButton = new JButton("Weekly attendance AVG calculator by month");
+        this.addGymMemberButton = new JButton("Aggiungi iscritto");
+        this.dailyWeightRoomAttendanceButton = new JButton("Presenze sala pesi giornaliere");
+        this.lessonsOfMemberBookedInMonthButton = new JButton("Lezioni prenotate dall'iscritto nel mese");
+        this.memberWeeklyAttendanceButton = new JButton("Presenze settimanali iscritto");
+        this.registerSubscriptionButton = new JButton("Registra abbonamento");
+        this.searchMemberAndCheckValiditySubscriptionButton = new JButton("Cerca iscritto e verifica abbonamento");
+        this.subscriptionsExpiringButton = new JButton("Abbonamenti in scadenza");
+        this.subscriptionVerificationAndAttendanceRegistrationButton = new JButton("Verifica abbonamento e registra presenza");
+        this.weeklyAttendanceAVGCalculatorByMonthButton = new JButton("Media presenze settimanali per mese");
 
         // Imposta il colore di sfondo dopo la creazione di tutti i bottoni
         this.addGymMemberButton.setBackground(Color.WHITE);

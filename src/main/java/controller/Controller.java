@@ -42,10 +42,28 @@ public class Controller {
         CITTA,
         VIA,
         NUMEROCIVICO,
-        NUMEROTELEFONO,
+        SESSO,
         DATANASCITA,
         DATACONSEGNACERTIFICATOMEDICO,
-        SESSO
+        NUMEROTELEFONO,
+        NUMEROSEGNALAZIONE,
+        DATA,
+        ORA,
+        STATO,
+        DESCRIZIONE,
+        NUMEROMACCHINARIO,
+        NOMEMACCHINARIO,
+        VECCHIASALA,
+        NUOVASALA,
+        NOMEGRUPPOMUSCOLARE,
+        NOMECORSO,
+        DATAINIZIO,
+        DATAFINE,
+        MESE,
+        ANNO,
+        DATASTIPULAZIONE,
+        TIPO,
+        DURATA
     }
 
     private final ManageConnection mc;
