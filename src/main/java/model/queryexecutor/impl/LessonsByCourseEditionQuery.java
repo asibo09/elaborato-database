@@ -13,12 +13,12 @@ public class LessonsByCourseEditionQuery implements Query {
 
     //OP-18	Visualizzare elenco delle lezioni di un’edizione corso 
 
-    private final String QUERY = "SELECT L.*" +
-            "FROM lezioni L, edizioni_corsi E" +
-            "WHERE L.Data_inizio = E.Data_inizio" +
+    private final String QUERY = "SELECT L.* " +
+            "FROM lezioni L, edizioni_corsi E " +
+            "WHERE L.Data_inizio = E.Data_inizio " +
             "AND L.Nome_corso = E.Nome_corso" +
-            "AND E.Nome_corso = ?" +
-            "AND E.Data_inizio = ?";
+            "AND E.Nome_corso = ? " +
+            "AND E.Data_inizio = ? ";
     private final String courseName;
     private final java.sql.Date courseDate;
     private final Connection connection;

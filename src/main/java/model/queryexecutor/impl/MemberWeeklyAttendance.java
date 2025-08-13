@@ -22,7 +22,7 @@ public class MemberWeeklyAttendance implements Query {
     "   WHERE Nome = ? " +
     "   AND Cognome = ? " +
     "   LIMIT 1 " + 
-    ")" +
+    ") " +
     "GROUP BY CF ";
 
     private final String nome;

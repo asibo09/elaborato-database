@@ -17,7 +17,7 @@ public class DailyWeightRoomAttendanceQuery implements Query {
             "WHERE P.CF = I.CF " +
             "AND P.Data = ? " +
             "GROUP BY I.CF, I.Nome, I.Cognome, P.Data, P.Ora " +
-            "ORDER BY P.Ora";
+            "ORDER BY P.Ora ";
     private final java.sql.Date date;
     private final Connection connection;
 

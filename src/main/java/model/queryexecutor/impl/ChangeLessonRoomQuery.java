@@ -38,7 +38,7 @@ public class ChangeLessonRoomQuery implements Query {
     private final String DELETE_LEZIONE =
     "DELETE FROM LEZIONI " +
     "WHERE Data = ? " +
-    "AND Ora = ? "+
+    "AND Ora = ? " +
     "AND Codice_Sala = ? "; 
 
     private final Date data;

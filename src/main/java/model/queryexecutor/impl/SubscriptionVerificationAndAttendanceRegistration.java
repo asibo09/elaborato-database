@@ -15,15 +15,15 @@ public class SubscriptionVerificationAndAttendanceRegistration implements Query 
 
     private final String VERIFY_QUERY = "SELECT *" +
             "FROM abbonamenti_utente" +
-            "WHERE CF = (" +
-            "    SELECT CF" +
-            "    FROM ISCRITTI" +
-            "    WHERE Nome = ?" +
-            "    AND Cognome = ?" +
-            "    LIMIT 1" +
-            ")" +
-            "AND Tipo_abbonamento = \"Sala Pesi\"" +
-            "AND DATEDIFF(DATE_ADD(Data_stipulazione, INTERVAL Durata DAY), CURDATE()) > 0;";
+            "WHERE CF = ( " +
+            "    SELECT CF " +
+            "    FROM ISCRITTI " +
+            "    WHERE Nome = ? " +
+            "    AND Cognome = ? " +
+            "    LIMIT 1 " +
+            ") " +
+            "AND Tipo_abbonamento = \"Sala Pesi\" " +
+            "AND DATEDIFF(DATE_ADD(Data_stipulazione, INTERVAL Durata DAY), CURDATE()) > 0; ";
     private final String REGISTER_ATTENDANCE_QUERY = "INSERT INTO Presenze_Sala_Pesi (Data_stipulazione, tipo, durata, cf, Data, ora)" +
             "VALUES (?, ?, ?, ?, ?, ?)";
 
