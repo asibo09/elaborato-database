@@ -1,6 +1,5 @@
 package model.queryexecutor.impl;
 
-import controller.Controller;
 import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
@@ -11,13 +10,13 @@ import java.util.Optional;
 
 public class DailyWeightRoomAttendanceQuery implements Query {
 
-    //OP-14	Visualizzare presenze in sala pesi per un determinato giorno
+    // OP-14 Visualizzare presenze in sala pesi per un determinato giorno
 
-    private final String QUERY = "SELECT I.CF, I.Nome, I.Cognome, P.Data, P.Ora, COUNT(*) numPresenze" +
-            "FROM presenze_sala_pesi P, iscritti I" +
-            "WHERE P.CF = I.CF" +
-            "AND P.Data = ?" +
-            "GROUP BY I.CF, I.Nome, I.Cognome, P.Data, P.Ora" +
+    private final String QUERY = "SELECT I.CF, I.Nome, I.Cognome, P.Data, P.Ora, COUNT(*) numPresenze " +
+            "FROM PRESENZA_SALA_PESI P, ISCRITTO I " +
+            "WHERE P.CF = I.CF " +
+            "AND P.Data = ? " +
+            "GROUP BY I.CF, I.Nome, I.Cognome, P.Data, P.Ora " +
             "ORDER BY P.Ora";
     private final java.sql.Date date;
     private final Connection connection;
@@ -30,11 +29,11 @@ public class DailyWeightRoomAttendanceQuery implements Query {
     @Override
     public Optional<ResultSet> execute() {
         try (
-                PreparedStatement preparedStatement = this.connection.prepareStatement(this.QUERY);
-                ) {
+                PreparedStatement preparedStatement = this.connection.prepareStatement(this.QUERY);) {
             preparedStatement.setDate(1, this.date);
             final ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
+            if (resultSet.next()) {
+                resultSet.beforeFirst();
                 return Optional.of(resultSet);
             }
             resultSet.close();

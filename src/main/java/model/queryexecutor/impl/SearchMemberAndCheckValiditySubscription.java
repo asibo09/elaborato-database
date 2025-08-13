@@ -16,27 +16,23 @@ public class SearchMemberAndCheckValiditySubscription implements Query {
 
     private final String QUERY = 
     "SELECT i.*, a.Data_stipulazione, a.Tipo, a.Durata " +
-    "FROM Abbonamenti_Utente a, Iscritti i " +
+    "FROM ABBONAMENTO_UTENTE a, ISCRITTO i " +
     "WHERE i.CF = a.CF " +
     "AND i.Nome = ? " +
     "AND i.Cognome = ? " +
-    "AND i.Data_nascita = ? " +
     "AND CURDATE() < DATE_ADD(a.Data_stipulazione, INTERVAL a.Durata DAY) ";
 
     private final String nome;
     private final String cognome;
-    private final Date dataNascita;
     private final Connection connection;
 
     public SearchMemberAndCheckValiditySubscription(
             final String nome,
             final  String cognome,
-            final Date dataNascita,
             final Connection connection
     ) {
         this.nome = nome;
         this.cognome = cognome;
-        this.dataNascita = dataNascita;
         this.connection = connection;
     }
 
@@ -47,9 +43,9 @@ public class SearchMemberAndCheckValiditySubscription implements Query {
         ){
             statement.setString(1, nome);
             statement.setString(2, cognome);
-            statement.setDate(3, dataNascita);
             final ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()) {
+                resultSet.beforeFirst();
                 return Optional.of(resultSet);
             }
         } catch(final SQLException e) {

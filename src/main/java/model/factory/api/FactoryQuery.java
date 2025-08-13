@@ -55,7 +55,7 @@ public interface FactoryQuery {
                                            final java.sql.Time durata,
                                            final String cf);
 
-    public Query SearchMemberAndCheckValiditySubscription(final String nome, final String cognome, final Date dataNascita);
+    public Query SearchMemberAndCheckValiditySubscription(final String nome, final String cognome);
 
     public Query SubscriptionsExpiringQuery();
 

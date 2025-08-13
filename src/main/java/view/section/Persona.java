@@ -100,8 +100,8 @@ public class Persona extends BaseView {
             this.southCenterPanel.removeAll();
             this.bridgeCV.setQueryName(QueryName.DAILYWEIGTHROOMATTENDANCE);
 
-            this.southCenterPanel.add(new JLabel("Data"));
-            this.southCenterPanel.add(new JTextField());
+            this.southCenterPanel.add(new JLabel(QueryParameters.DATA.toString()));
+            this.southCenterPanel.add(parameters.get(QueryParameters.DATA.toString()));
 
             repaintPanel();
         });
@@ -113,11 +113,11 @@ public class Persona extends BaseView {
             this.southCenterPanel.add(new JLabel(QueryParameters.CF.toString()));
             this.southCenterPanel.add(parameters.get(QueryParameters.CF.toString()));
 
-            this.southCenterPanel.add(new JLabel("Mese"));
-            this.southCenterPanel.add(new JTextField());
+            this.southCenterPanel.add(new JLabel(QueryParameters.MESE.toString()));
+            this.southCenterPanel.add(parameters.get(QueryParameters.MESE.toString()));
 
-            this.southCenterPanel.add(new JLabel("Anno"));
-            this.southCenterPanel.add(new JTextField());
+            this.southCenterPanel.add(new JLabel(QueryParameters.ANNO.toString()));
+            this.southCenterPanel.add(parameters.get(QueryParameters.ANNO.toString()));
 
             repaintPanel();
         });
@@ -139,14 +139,14 @@ public class Persona extends BaseView {
             this.southCenterPanel.removeAll();
             this.bridgeCV.setQueryName(QueryName.REGISTERSUBSCRIPTION);
 
-            this.southCenterPanel.add(new JLabel("Data stipulazione"));
-            this.southCenterPanel.add(new JTextField());
+            this.southCenterPanel.add(new JLabel(QueryParameters.DATASTIPULAZIONE.toString()));
+            this.southCenterPanel.add(parameters.get(QueryParameters.DATASTIPULAZIONE.toString()));
 
-            this.southCenterPanel.add(new JLabel("Tipo"));
-            this.southCenterPanel.add(new JTextField());
+            this.southCenterPanel.add(new JLabel(QueryParameters.TIPO.toString()));
+            this.southCenterPanel.add(parameters.get(QueryParameters.TIPO.toString()));
 
-            this.southCenterPanel.add(new JLabel("Durata"));
-            this.southCenterPanel.add(new JTextField());
+            this.southCenterPanel.add(new JLabel(QueryParameters.DURATA.toString()));
+            this.southCenterPanel.add(parameters.get(QueryParameters.DURATA.toString()));
 
             this.southCenterPanel.add(new JLabel(QueryParameters.CF.toString()));
             this.southCenterPanel.add(parameters.get(QueryParameters.CF.toString()));
@@ -163,9 +163,6 @@ public class Persona extends BaseView {
 
             this.southCenterPanel.add(new JLabel(QueryParameters.COGNOME.toString()));
             this.southCenterPanel.add(parameters.get(QueryParameters.COGNOME.toString()));
-
-            this.southCenterPanel.add(new JLabel(QueryParameters.DATANASCITA.toString()));
-            this.southCenterPanel.add(parameters.get(QueryParameters.DATANASCITA.toString()));
 
             repaintPanel();
         });
@@ -186,11 +183,11 @@ public class Persona extends BaseView {
             this.southCenterPanel.add(new JLabel(QueryParameters.COGNOME.toString()));
             this.southCenterPanel.add(parameters.get(QueryParameters.COGNOME.toString()));
 
-            this.southCenterPanel.add(new JLabel("Data"));
-            this.southCenterPanel.add(new JTextField());
+            this.southCenterPanel.add(new JLabel(QueryParameters.DATA.toString()));
+            this.southCenterPanel.add(parameters.get(QueryParameters.DATA.toString()));
 
-            this.southCenterPanel.add(new JLabel("Ora"));
-            this.southCenterPanel.add(new JTextField());
+            this.southCenterPanel.add(new JLabel(QueryParameters.ORA.toString()));
+            this.southCenterPanel.add(parameters.get(QueryParameters.ORA.toString()));
 
             repaintPanel();
         });
@@ -199,8 +196,8 @@ public class Persona extends BaseView {
             this.southCenterPanel.removeAll();
             this.bridgeCV.setQueryName(QueryName.WEEKLYATTENDANCEAVGCALCULATORBYMONTH);
 
-            this.southCenterPanel.add(new JLabel("Mese"));
-            this.southCenterPanel.add(new JTextField());
+            this.southCenterPanel.add(new JLabel(QueryParameters.MESE.toString()));
+            this.southCenterPanel.add(parameters.get(QueryParameters.MESE.toString()));
 
             repaintPanel();
         });

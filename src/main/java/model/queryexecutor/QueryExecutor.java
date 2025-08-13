@@ -32,8 +32,7 @@ public class QueryExecutor {
                         parameters.get(QueryParameters.SESSO.toString()).charAt(0),
                         java.sql.Date.valueOf(parameters.get(QueryParameters.DATANASCITA.toString())),
                         java.sql.Date.valueOf(parameters.get(QueryParameters.DATACONSEGNACERTIFICATOMEDICO.toString())),
-                        parameters.get(QueryParameters.NUMEROTELEFONO.toString())
-                ).execute();
+                        parameters.get(QueryParameters.NUMEROTELEFONO.toString())).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case ADDREPORTQUERY:
@@ -44,8 +43,7 @@ public class QueryExecutor {
                         parameters.get(QueryParameters.STATO.toString()),
                         parameters.get(QueryParameters.DESCRIZIONE.toString()),
                         Integer.parseInt(parameters.get(QueryParameters.NUMEROMACCHINARIO.toString())),
-                        parameters.get(QueryParameters.NOMEMACCHINARIO.toString())
-                ).execute();
+                        parameters.get(QueryParameters.NOMEMACCHINARIO.toString())).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case CHANGELESSONROOM:
@@ -53,20 +51,17 @@ public class QueryExecutor {
                         java.sql.Date.valueOf(parameters.get(QueryParameters.DATA.toString())),
                         java.sql.Time.valueOf(parameters.get(QueryParameters.ORA.toString())),
                         parameters.get(QueryParameters.VECCHIASALA.toString()),
-                        parameters.get(QueryParameters.NUOVASALA.toString())
-                ).execute();
+                        parameters.get(QueryParameters.NUOVASALA.toString())).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case DAILYWEIGTHROOMATTENDANCE:
                 this.resultSet = this.factoryQuery.DailyWeightRoomAttendanceQuery(
-                        java.sql.Date.valueOf(parameters.get(QueryParameters.DATA.toString()))
-                ).execute();
+                        java.sql.Date.valueOf(parameters.get(QueryParameters.DATA.toString()))).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case EXERCISESBYMUSCLEGROUP:
                 this.resultSet = this.factoryQuery.createExercisesByMuscleGroupQuery(
-                        parameters.get(QueryParameters.NOMEGRUPPOMUSCOLARE.toString())
-                ).execute();
+                        parameters.get(QueryParameters.NOMEGRUPPOMUSCOLARE.toString())).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case LASTYEARREPORTS:
@@ -76,23 +71,20 @@ public class QueryExecutor {
             case LESSONSBYCOURSEEDITION:
                 this.resultSet = this.factoryQuery.LessonsByCourseEditionQuery(
                         parameters.get(QueryParameters.NOMECORSO.toString()),
-                        java.sql.Date.valueOf(parameters.get(QueryParameters.DATAINIZIO.toString()))
-                ).execute();
+                        java.sql.Date.valueOf(parameters.get(QueryParameters.DATAINIZIO.toString()))).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case LESSONSOFMEMBERBOOKEDINMONTH:
                 this.resultSet = this.factoryQuery.LessonsOfMemberBookedInMonthQuery(
                         parameters.get(QueryParameters.CF.toString()),
                         Integer.parseInt(parameters.get(QueryParameters.MESE.toString())),
-                        Integer.parseInt(parameters.get(QueryParameters.ANNO.toString()))
-                ).execute();
+                        Integer.parseInt(parameters.get(QueryParameters.ANNO.toString()))).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case MEMBERWEEKLYATTENDANCE:
                 this.resultSet = this.factoryQuery.MemberWeeklyAttendance(
                         parameters.get(QueryParameters.NOME.toString()),
-                        parameters.get(QueryParameters.COGNOME.toString())
-                ).execute();
+                        parameters.get(QueryParameters.COGNOME.toString())).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case MEMBERWORKOUTPLANVIEWER:
@@ -106,8 +98,7 @@ public class QueryExecutor {
             case MOSTUSEDMACHINESWEEK:
                 this.resultSet = this.factoryQuery.MostUsedMachinesWeekQuery(
                         java.sql.Date.valueOf(parameters.get(QueryParameters.DATAINIZIO.toString())),
-                        java.sql.Date.valueOf(parameters.get(QueryParameters.DATAFINE.toString()))
-                ).execute();
+                        java.sql.Date.valueOf(parameters.get(QueryParameters.DATAFINE.toString()))).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case REGISTERSUBSCRIPTION:
@@ -115,16 +106,13 @@ public class QueryExecutor {
                         parameters.get(QueryParameters.DATASTIPULAZIONE.toString()),
                         parameters.get(QueryParameters.TIPO.toString()),
                         java.sql.Time.valueOf(parameters.get(QueryParameters.DURATA.toString())),
-                        parameters.get(QueryParameters.CF.toString())
-                ).execute();
+                        parameters.get(QueryParameters.CF.toString())).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case SEARCHMEMBERANDCHECKVALIDITYSUBSCRIPTION:
                 this.resultSet = this.factoryQuery.SearchMemberAndCheckValiditySubscription(
                         parameters.get(QueryParameters.NOME.toString()),
-                        parameters.get(QueryParameters.COGNOME.toString()),
-                        java.sql.Date.valueOf(parameters.get(QueryParameters.DATANASCITA.toString()))
-                ).execute();
+                        parameters.get(QueryParameters.COGNOME.toString())).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case SUBSCRIPTIONSEXPIRING:
@@ -136,15 +124,13 @@ public class QueryExecutor {
                         parameters.get(QueryParameters.NOME.toString()),
                         parameters.get(QueryParameters.COGNOME.toString()),
                         java.sql.Date.valueOf(parameters.get(QueryParameters.DATA.toString())),
-                        java.sql.Time.valueOf(parameters.get(QueryParameters.ORA.toString()))
-                ).execute();
+                        java.sql.Time.valueOf(parameters.get(QueryParameters.ORA.toString()))).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case TRAINERCOURSESOFTHECURRENTYEAR:
                 this.resultSet = this.factoryQuery.TrainerCoursesOfTheCurrentYearQuery(
                         parameters.get(QueryParameters.NOME.toString()),
-                        parameters.get(QueryParameters.COGNOME.toString())
-                ).execute();
+                        parameters.get(QueryParameters.COGNOME.toString())).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case UNRESOLVEDREPORTSOLDERTHANTHREEDAYS:
@@ -157,14 +143,12 @@ public class QueryExecutor {
 
             case VIEWWORKOUTPLANQUERY:
                 this.resultSet = this.factoryQuery.ViewWorkoutPlanQuery(
-                        parameters.get(QueryParameters.CF.toString())
-                ).execute();
+                        parameters.get(QueryParameters.CF.toString())).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case WEEKLYATTENDANCEAVGCALCULATORBYMONTH:
                 this.resultSet = this.factoryQuery.WeeklyAttendanceAVGCalculatorByMonthQuery(
-                        java.sql.Date.valueOf(parameters.get(QueryParameters.MESE.toString()))
-                ).execute();
+                        java.sql.Date.valueOf(parameters.get(QueryParameters.MESE.toString()))).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             default:

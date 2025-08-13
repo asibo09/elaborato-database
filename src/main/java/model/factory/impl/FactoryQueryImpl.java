@@ -28,7 +28,8 @@ public class FactoryQueryImpl implements FactoryQuery {
             final Date dataNascita,
             final Date dataConsegnaCertificatoMedico,
             final String numeroTelefono) {
-        return new AddGymMemberQuery(connection, cf, nome, cognome, citta, via, civico, sesso, dataNascita, dataConsegnaCertificatoMedico, numeroTelefono);
+        return new AddGymMemberQuery(connection, cf, nome, cognome, citta, via, civico, sesso, dataNascita,
+                dataConsegnaCertificatoMedico, numeroTelefono);
     }
 
     @Override
@@ -40,7 +41,8 @@ public class FactoryQueryImpl implements FactoryQuery {
             final String description,
             final int machineId,
             final String machineName) {
-        return new AddReportQuery(connection, numeroSegnalazione, date, time, state, description, machineId, machineName);
+        return new AddReportQuery(connection, numeroSegnalazione, date, time, state, description, machineId,
+                machineName);
     }
 
     @Override
@@ -113,9 +115,8 @@ public class FactoryQueryImpl implements FactoryQuery {
     @Override
     public Query SearchMemberAndCheckValiditySubscription(
             final String nome,
-            final String cognome,
-            final Date dataNascita) {
-        return new SearchMemberAndCheckValiditySubscription(nome, cognome, dataNascita, connection);
+            final String cognome) {
+        return new SearchMemberAndCheckValiditySubscription(nome, cognome, connection);
     }
 
     @Override
