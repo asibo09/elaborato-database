@@ -26,7 +26,8 @@ dependencies {
     // Maven dependencies are composed by a group name, a name and a version, separated by colons
     implementation("com.omertron:API-OMDB:1.5")
     implementation("org.jooq:jool:0.9.15")
-    implementation("org.mariadb.jdbc:mariadb-java-client:3.3.2")
+    
+    implementation("mysql:mysql-connector-java:8.0.33")
 
 
     /*

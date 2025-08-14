@@ -7,11 +7,11 @@ import java.sql.SQLException;
 
 public class ManageConnection {
 
-    private final String url = "jdbc:mariadb://localhost:3306/Palestra";
+    String url = "jdbc:mysql://127.0.0.1:3306/palestra";
     private final Connection connection;
 
     public ManageConnection() throws SQLException {
-        this.connection = DriverManager.getConnection(url, "root", "prova");
+        this.connection = DriverManager.getConnection(url, "root", "Mparolo16#");
     }
 
     public void closeConnection() throws SQLException {
