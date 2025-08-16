@@ -14,7 +14,7 @@ public class WeeklyAttendanceAVGCalculatorByMonthQuery implements Query {
     //OP-19	Media delle presenze settimanali in sala pesi nell'arco di un mese
     
     private final String QUERY = "SELECT COUNT(*) / 4 " +
-            "FROM Presenze_Sala_Pesi " +
+            "FROM presenza_sala_pesi " +
             "WHERE MONTH(Data) = ? ";
     private final java.sql.Date month;
     private final Connection connection;

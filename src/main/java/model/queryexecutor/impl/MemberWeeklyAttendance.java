@@ -15,10 +15,10 @@ public class MemberWeeklyAttendance implements Query {
 
     private final String QUERY = 
     "SELECT CF, COUNT(*) / 52 AS Media_Settimanale " +
-    "FROM Presenze_Sala_Pesi " +
+    "FROM presenza_sala_pesi " +
     "WHERE CF = ( " +
     "   SELECT CF " +
-    "   FROM Iscritti " +
+    "   FROM iscritto " +
     "   WHERE Nome = ? " +
     "   AND Cognome = ? " +
     "   LIMIT 1 " + 

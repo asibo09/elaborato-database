@@ -12,7 +12,7 @@ public class MostUsedMachinesWeekQuery implements Query {
 
     private final String QUERY = 
     "SELECT m.Numero_Macchinario, m.Nome_Macchinario, COUNT(*) AS Totale_Utilizzi " +
-    "FROM Macchinari m, Attrezzi_Lezione a, Lezione i " +
+    "FROM macchinario m, attrezzo_Lezione a, lezione i " +
     "WHERE m.Numero_Macchinario = a.Numero_Macchinario " +
     "AND m.Nome_Macchinario = a.Nome_Macchinario " +
     "AND i.Data = a.Data AND i.Ora = a.Ora AND i.Codice_Sala = a.Codice_Sala " +

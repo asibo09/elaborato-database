@@ -14,7 +14,7 @@ public class LessonsByCourseEditionQuery implements Query {
     //OP-18	Visualizzare elenco delle lezioni di un’edizione corso 
 
     private final String QUERY = "SELECT L.* " +
-            "FROM lezioni L, edizioni_corsi E " +
+            "FROM lezione L, edizione_corso E " +
             "WHERE L.Data_inizio = E.Data_inizio " +
             "AND L.Nome_corso = E.Nome_corso" +
             "AND E.Nome_corso = ? " +

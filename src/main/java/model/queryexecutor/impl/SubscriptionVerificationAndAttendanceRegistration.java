@@ -14,17 +14,17 @@ public class SubscriptionVerificationAndAttendanceRegistration implements Query 
     //OP-11	Registrazione presenza in sala pesi e verifica del tipo e della validità dell’abbonamento
 
     private final String VERIFY_QUERY = "SELECT *" +
-            "FROM abbonamenti_utente" +
+            "FROM abbonamento_utente" +
             "WHERE CF = ( " +
             "    SELECT CF " +
-            "    FROM ISCRITTI " +
+            "    FROM ISCRITTO " +
             "    WHERE Nome = ? " +
             "    AND Cognome = ? " +
             "    LIMIT 1 " +
             ") " +
-            "AND Tipo_abbonamento = \"Sala Pesi\" " +
+            "AND tipo_abbonamento = \"Sala Pesi\" " +
             "AND DATEDIFF(DATE_ADD(Data_stipulazione, INTERVAL Durata DAY), CURDATE()) > 0; ";
-    private final String REGISTER_ATTENDANCE_QUERY = "INSERT INTO Presenze_Sala_Pesi (Data_stipulazione, tipo, durata, cf, Data, ora)" +
+    private final String REGISTER_ATTENDANCE_QUERY = "INSERT INTO presenza_sala_pesi (Data_stipulazione, tipo, durata, cf, Data, ora)" +
             "VALUES (?, ?, ?, ?, ?, ?)";
 
     private final String nome;

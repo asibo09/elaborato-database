@@ -15,7 +15,7 @@ public class UnresolvedReportsOlderThanThreeDays implements Query {
     
     private final String QUERY =
     "SELECT * " +
-    "FROM Storico_Segnalazioni s " +
+    "FROM storico_segnalazioni s " +
     "WHERE Stato = ‘Non risolto’ " +
     "AND s.Data <= DATE_SUB(CURDATE(), INTERVAL 3 DAY) ";
     private final Connection connection;

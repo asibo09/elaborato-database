@@ -16,27 +16,27 @@ public class ChangeLessonRoomQuery implements Query {
     //OP-21	Spostare una lezione in un'altra sala
 
     private final String COPY_LEZIONE = 
-    "INSERT INTO LEZIONI (Data, Ora, Codice_sala, Data_inizio, Nome_corso) " +
+    "INSERT INTO LEZIONE (Data, Ora, Codice_sala, Data_inizio, Nome_corso) " +
     "SELECT Data, Ora, Codice_sala " +
-    "FROM LEZIONI " +
+    "FROM LEZIONE " +
     "WHERE Data = ? " +
     "AND Ora = ? " +
     "AND Codice_Sala = ? " ;
 
     private final String UPDATE_PRENOTAZIONI =
-    "UPDATE PRENOTAZIONI SET Codice_Sala = ? " +
+    "UPDATE PRENOTAZIONE SET Codice_Sala = ? " +
     "WHERE  Data = ? " +
     "AND Ora = ? " +
     "AND Codice_Sala = ? " ; 
 
     private final String UPDATE_ATTREZZI =
-    "UPDATE ATTREZZI_LEZIONI SET Codice_Sala = ? " +
+    "UPDATE ATTREZZO_LEZIONE SET Codice_Sala = ? " +
     "WHERE  Data = ? " +
     "AND Ora = ? " +
     "AND Codice_Sala = ? " ;
 
     private final String DELETE_LEZIONE =
-    "DELETE FROM LEZIONI " +
+    "DELETE FROM LEZIONE " +
     "WHERE Data = ? " +
     "AND Ora = ? " +
     "AND Codice_Sala = ? "; 

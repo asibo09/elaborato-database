@@ -14,12 +14,12 @@ public class TrainerCoursesOfTheCurrentYearQuery implements Query {
     //OP-15	Elenco dei corsi tenuti da un trainer in un determinato anno
 
     private final String TRAINER_CF_QUERY = "Select CF " +
-            "From Trainer " +
+            "From trainer " +
             "Where nome = ? " +
             "And Cognome = ? " +
             "Limit 1 ";
     private final String QUERY = "Select * " +
-            "From EDIZIONE_CORSI " +
+            "From EDIZIONE_CORSO " +
             "Where CF = ? " +
             "And DATEDIFF(CURDATE(), Data_inizio) < 365 ";
     private final String name;

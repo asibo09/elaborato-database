@@ -15,7 +15,7 @@ public class MostLessonByTrainerInMonthQuery implements Query {
 
     private final String QUERY = 
     "SELECT  t.CF, t.Nome, t.Cognome, COUNT(*) AS NumeroLezioni " +
-    "FROM Trainer t, Edizioni_Corsi ed, Lezioni l " +
+    "FROM trainer t, edizione_Corso ed, lezione l " +
     "WHERE t.CF = ed.CF " +
     "AND ed.Data_Inizio = l.Data_Inizio " +
     "AND ed.Nome = l.nome " +

@@ -14,8 +14,8 @@ public class LessonsOfMemberBookedInMonthQuery implements Query {
     "SELECT * " +
     "FROM ( " +
     "   SELECT ab.CF, pc.Data, pc.Ora, pc.Codice_Sala " +
-    "   FROM ABBONAMENTI_UTENTE ab " +
-    "   JOIN PARTECIPAZIONI_CORSO pc ON " +
+    "   FROM ABBONAMENTO_UTENTE ab " +
+    "   JOIN PARTECIPAZIONE_CORSO pc ON " +
     "       ab.Data_stipulazione = pc.Data_stipulazione AND " +
     "       ab.CF = pc.CF AND " +
     "       ab.Tipo = pc.Tipo AND " +
@@ -25,8 +25,8 @@ public class LessonsOfMemberBookedInMonthQuery implements Query {
     "   UNION " +
 
     "   SELECT ab.CF, pre.Data, pre.Ora, pre.Codice_Sala " +
-    "   FROM ABBONAMENTI_UTENTE ab " +
-    "   JOIN PRENOTAZIONI pre ON " +
+    "   FROM ABBONAMENTO_UTENTE ab " +
+    "   JOIN PRENOTAZIONE pre ON " +
     "       ab.Data_stipulazione = pre.Data_stipulazione AND " +
     "       ab.CF = pre.CF AND " +
     "       ab.Tipo = pre.Tipo AND " +

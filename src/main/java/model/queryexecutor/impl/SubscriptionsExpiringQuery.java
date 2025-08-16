@@ -12,7 +12,7 @@ public class SubscriptionsExpiringQuery implements Query {
 
     private final String QUERY =
     "SELECT * " +
-    "FROM Abbonamenti_Utente " +
+    "FROM abbonamento_utente " +
     "WHERE DATEDIFF(DATE_ADD(Data_stipulazione, Durata), CURDATE()) <= 7 ";
     private final Connection connection;
 
