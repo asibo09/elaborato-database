@@ -9,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
+
 public class MostLessonByTrainerInMonthQuery implements Query {
 
     //OP-25	Visualizza i trainer con più lezioni in un determinato mese
@@ -33,13 +36,18 @@ public class MostLessonByTrainerInMonthQuery implements Query {
                 PreparedStatement statement = connection.prepareStatement(QUERY)
                 ){
             final ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()) {
-                return Optional.of(resultSet);
+
+            CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
+            crs.populate(resultSet);
+
+            if (!crs.isBeforeFirst()) {
+                return Optional.empty();
             }
+            return Optional.of(crs);
         } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.empty();
+        
     }
 
 }
