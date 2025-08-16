@@ -56,7 +56,7 @@ public class Corsi extends BaseView {
             this.bridgeCV.setQueryName(QueryName.EXERCISESBYMUSCLEGROUP);
 
             this.southCenterPanel.add(new JLabel("Nome gruppo muscolare"));
-            this.southCenterPanel.add(new JTextField());
+            this.southCenterPanel.add(parameters.get(QueryParameters.NOMEGRUPPOMUSCOLARE.toString()));
 
             repaintPanel();
         });
