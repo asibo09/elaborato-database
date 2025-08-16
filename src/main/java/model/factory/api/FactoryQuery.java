@@ -48,7 +48,7 @@ public interface FactoryQuery {
 
     public Query MostLessonByTrainerInMonthQuery();
 
-    public Query MostUsedMachinesWeekQuery(final Date startDate, final Date endDate);
+    public Query MostUsedMachinesWeekQuery();
 
     public Query RegisterSubscriptionQuery(final Date dataStipulazione,
                                            final String tipo,

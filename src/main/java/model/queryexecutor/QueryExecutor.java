@@ -94,9 +94,7 @@ public class QueryExecutor {
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case MOSTUSEDMACHINESWEEK:
-                this.resultSet = this.factoryQuery.MostUsedMachinesWeekQuery(
-                        java.sql.Date.valueOf(parameters.get(QueryParameters.DATAINIZIO.toString())),
-                        java.sql.Date.valueOf(parameters.get(QueryParameters.DATAFINE.toString()))).execute();
+                this.resultSet = this.factoryQuery.MostUsedMachinesWeekQuery().execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case REGISTERSUBSCRIPTION:

@@ -97,10 +97,8 @@ public class FactoryQueryImpl implements FactoryQuery {
     }
 
     @Override
-    public Query MostUsedMachinesWeekQuery(
-            final Date startDate,
-            final Date endDate) {
-        return new MostUsedMachinesWeekQuery(startDate, endDate, connection);
+    public Query MostUsedMachinesWeekQuery() {
+        return new MostUsedMachinesWeekQuery(connection);
     }
 
     @Override
