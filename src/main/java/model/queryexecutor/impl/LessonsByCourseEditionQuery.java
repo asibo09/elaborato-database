@@ -9,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
+
 public class LessonsByCourseEditionQuery implements Query {
 
     //OP-18	Visualizzare elenco delle lezioni di un’edizione corso 
@@ -16,8 +19,8 @@ public class LessonsByCourseEditionQuery implements Query {
     private final String QUERY = "SELECT L.* " +
             "FROM lezione L, edizione_corso E " +
             "WHERE L.Data_inizio = E.Data_inizio " +
-            "AND L.Nome_corso = E.Nome_corso" +
-            "AND E.Nome_corso = ? " +
+            "AND L.Nome = E.Nome " +
+            "AND E.Nome = ? " +
             "AND E.Data_inizio = ? ";
     private final String courseName;
     private final java.sql.Date courseDate;
@@ -37,13 +40,17 @@ public class LessonsByCourseEditionQuery implements Query {
             preparedStatement.setString(1,this.courseName);
             preparedStatement.setDate(2,this.courseDate);
             final ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
-                return Optional.of(resultSet);
+
+            CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
+            crs.populate(resultSet);
+
+            if (!crs.isBeforeFirst()) {
+                return Optional.empty();
             }
-            resultSet.close();
+            return Optional.of(crs);
         } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.empty();
+        
     }
 }

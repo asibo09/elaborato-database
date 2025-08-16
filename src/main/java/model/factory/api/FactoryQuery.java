@@ -40,7 +40,7 @@ public interface FactoryQuery {
 
     public Query createLastYearReportsQuery();
 
-    public Query LessonsByCourseEditionQuery(final String courseName, final java.sql.Date courseDate);
+    public Query LessonsByCourseEditionQuery(final String courseName, final Date courseDate);
 
     public Query LessonsOfMemberBookedInMonthQuery(final String cf, final int mese, final int anno);
 

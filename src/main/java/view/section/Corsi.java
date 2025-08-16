@@ -2,6 +2,7 @@ package view.section;
 
 import controller.BridgeCV;
 import controller.Controller.QueryName;
+import controller.Controller.QueryParameters;
 import view.BaseView;
 
 import javax.swing.*;
@@ -41,10 +42,10 @@ public class Corsi extends BaseView {
             this.bridgeCV.setQueryName(QueryName.LESSONSBYCOURSEEDITION);
 
             this.southCenterPanel.add(new JLabel("Nome corso"));
-            this.southCenterPanel.add(new JTextField());
+            this.southCenterPanel.add(parameters.get(QueryParameters.NOMECORSO.toString()));
 
             this.southCenterPanel.add(new JLabel("Data inizio (YYYY-MM-DD)"));
-            this.southCenterPanel.add(new JTextField());
+            this.southCenterPanel.add(parameters.get(QueryParameters.DATAINIZIO.toString()));
 
             repaintPanel();
         });

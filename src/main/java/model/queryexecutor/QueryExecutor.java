@@ -68,10 +68,8 @@ public class QueryExecutor {
                 this.resultSet = this.factoryQuery.createLastYearReportsQuery().execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
-            case LESSONSBYCOURSEEDITION:
-                this.resultSet = this.factoryQuery.LessonsByCourseEditionQuery(
-                        parameters.get(QueryParameters.NOMECORSO.toString()),
-                        java.sql.Date.valueOf(parameters.get(QueryParameters.DATAINIZIO.toString()))).execute();
+            case LESSONSBYCOURSEEDITION: this.resultSet = this.factoryQuery.LessonsByCourseEditionQuery( 
+                parameters.get(QueryParameters.NOMECORSO.toString()), java.sql.Date.valueOf(parameters.get(QueryParameters.DATAINIZIO.toString()))).execute(); 
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case LESSONSOFMEMBERBOOKEDINMONTH:
