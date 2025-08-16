@@ -45,17 +45,16 @@ public class MemberWeeklyAttendance implements Query {
                 ){
             statement.setString(1, nome);
             statement.setString(2, cognome);
-            
-            try (ResultSet rs = statement.executeQuery()) {
-                CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
-                crs.populate(rs);
 
-                if (!crs.isBeforeFirst()) { // nessun risultato
-                    return Optional.empty();
-                }
+            ResultSet rs = statement.executeQuery();
+            CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
+            crs.populate(rs);
 
-                return Optional.of(crs);
+            if (!crs.isBeforeFirst()) { 
+                return Optional.empty();
             }
+
+            return Optional.of(crs);
         } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
