@@ -10,6 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
+
 public class SearchMemberAndCheckValiditySubscription implements Query {
 
     //OP-26	Ricerca di un iscritto e visualizzare se il suo abbonamento è ancora valido
@@ -44,13 +47,16 @@ public class SearchMemberAndCheckValiditySubscription implements Query {
             statement.setString(1, nome);
             statement.setString(2, cognome);
             final ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()) {
-                resultSet.beforeFirst();
-                return Optional.of(resultSet);
+            
+            CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
+            crs.populate(resultSet);
+
+            if (!crs.isBeforeFirst()) {
+                return Optional.empty();
             }
+            return Optional.of(crs);
         } catch(final SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.empty();
     }
 }
