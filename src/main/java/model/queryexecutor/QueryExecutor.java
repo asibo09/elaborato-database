@@ -40,6 +40,7 @@ public class QueryExecutor {
                         parameters.get(QueryParameters.NUMEROSEGNALAZIONE.toString()),
                         java.sql.Date.valueOf(parameters.get(QueryParameters.DATA.toString())),
                         java.sql.Time.valueOf(parameters.get(QueryParameters.ORA.toString())),
+                        parameters.get(QueryParameters.CF.toString()),
                         parameters.get(QueryParameters.STATO.toString()),
                         parameters.get(QueryParameters.DESCRIZIONE.toString()),
                         Integer.parseInt(parameters.get(QueryParameters.NUMEROMACCHINARIO.toString())),

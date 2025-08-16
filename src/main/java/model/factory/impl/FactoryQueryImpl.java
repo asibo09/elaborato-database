@@ -37,11 +37,12 @@ public class FactoryQueryImpl implements FactoryQuery {
             final String numeroSegnalazione,
             final Date date,
             final Time time,
+            final String cf,
             final String state,
             final String description,
             final int machineId,
             final String machineName) {
-        return new AddReportQuery(connection, numeroSegnalazione, date, time, state, description, machineId,
+        return new AddReportQuery(connection, numeroSegnalazione, date, time, cf, state, description, machineId,
                 machineName);
     }
 
