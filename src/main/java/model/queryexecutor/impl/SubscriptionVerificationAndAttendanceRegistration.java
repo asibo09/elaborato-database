@@ -13,8 +13,8 @@ public class SubscriptionVerificationAndAttendanceRegistration implements Query 
 
     //OP-11	Registrazione presenza in sala pesi e verifica del tipo e della validità dell’abbonamento
 
-    private final String VERIFY_QUERY = "SELECT *" +
-            "FROM abbonamento_utente" +
+    private final String VERIFY_QUERY = "SELECT * " +
+            "FROM abbonamento_utente " +
             "WHERE CF = ( " +
             "    SELECT CF " +
             "    FROM ISCRITTO " +
@@ -22,7 +22,7 @@ public class SubscriptionVerificationAndAttendanceRegistration implements Query 
             "    AND Cognome = ? " +
             "    LIMIT 1 " +
             ") " +
-            "AND tipo_abbonamento = \"Sala Pesi\" " +
+            "AND Tipo = 'Sala Pesi' " +
             "AND DATEDIFF(DATE_ADD(Data_stipulazione, INTERVAL Durata DAY), CURDATE()) > 0; ";
     private final String REGISTER_ATTENDANCE_QUERY = "INSERT INTO presenza_sala_pesi (Data_stipulazione, tipo, durata, cf, Data, ora)" +
             "VALUES (?, ?, ?, ?, ?, ?)";
@@ -31,7 +31,7 @@ public class SubscriptionVerificationAndAttendanceRegistration implements Query 
     private final String cognome;
     private java.sql.Date dataStipulazione;
     private String tipo;
-    private java.sql.Time durata;
+    private int durata;
     private String cf;
     private final java.sql.Date data;
     private final java.sql.Time ora;
@@ -50,23 +50,26 @@ public class SubscriptionVerificationAndAttendanceRegistration implements Query 
         this.ora = ora;
         this.connection = connection;
         try(
-                PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM abbonamenti_utente" +
-                                "WHERE CF = (" +
-                                "    SELECT CF" +
-                                "    FROM ISCRITTI" +
-                                "    WHERE Nome = ?" +
-                                "    AND Cognome = ?" +
-                                "    LIMIT 1" +
-                                ")" +
-                                "AND Tipo_abbonamento = \"Sala Pesi\"")
+                PreparedStatement preparedStatement = this.connection.prepareStatement(
+                    "SELECT * " +
+                    "FROM abbonamento_utente " +   
+                    "WHERE CF = ( " +
+                    "    SELECT CF " +
+                    "    FROM iscritto " +         
+                    "    WHERE Nome = ? " +
+                    "    AND Cognome = ? " +
+                    "    LIMIT 1 " +
+                    ") " +
+                    "AND tipo = 'Sala Pesi'"
+                );
                 ){
             preparedStatement.setString(1, this.nome);
             preparedStatement.setString(2, this.cognome);
             final ResultSet subscription = preparedStatement.executeQuery();
             if(subscription.next()){
                 this.dataStipulazione = subscription.getDate("Data_stipulazione");
-                this.tipo = subscription.getString("Tipo_abbonamento");
-                this.durata = subscription.getTime("Durata");
+                this.tipo = subscription.getString("Tipo");
+                this.durata = subscription.getInt("Durata");
                 this.cf = subscription.getString("CF");
             } else {
                 System.out.println("Abbonamento non trovato");
@@ -107,7 +110,7 @@ public class SubscriptionVerificationAndAttendanceRegistration implements Query 
                     ){
                 preparedStatement.setDate(1, this.dataStipulazione);
                 preparedStatement.setString(2, this.tipo);
-                preparedStatement.setTime(3, this.durata);
+                preparedStatement.setInt(3, this.durata);
                 preparedStatement.setString(4, this.cf);
                 preparedStatement.setDate(5, this.data);
                 preparedStatement.setTime(6, this.ora);
