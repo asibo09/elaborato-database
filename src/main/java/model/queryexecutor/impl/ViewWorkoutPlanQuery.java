@@ -9,16 +9,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
+
 public class ViewWorkoutPlanQuery implements Query {
 
     // OP-20    Visualizza una scheda di un iscritto
 
     private final String QUERY =
-    "SELECT U.CF, U.Codice_scheda, M.Posizione, M.Nome_esercizio, C.Peso, C.Numero_ripetizioni, C.recupero, C.quantità " +
+    "SELECT U.CF, U.Codice_scheda, M.Posizione, M.Nome_esercizio, C.Peso, C.Numero_ripetizioni, C.recupero, C.quantita " +
     "FROM utilizzo_scheda U, modalita_esercizio M, configurazione C " +
     "WHERE U.Codice_scheda = M.Codice_scheda " +
     "AND M.Codice_scheda = C.Codice_scheda " +
-    "AND M.Nome_esercizio = C.Nome_esercizio " +
+    "AND M.Posizione = C.Posizione " +
     "AND U.CF = ? " +
     "ORDER BY M.Posizione" ;
 
@@ -39,16 +42,19 @@ public class ViewWorkoutPlanQuery implements Query {
             preparedStatement.setString(1, this.CF);
 
             final ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                resultSet.beforeFirst(); 
-                return Optional.of(resultSet);
+
+            CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
+            crs.populate(resultSet);
+
+            if (!crs.isBeforeFirst()) {
+                return Optional.empty();
             }
+            return Optional.of(crs);
 
         } catch (final SQLException e) {
             throw new RuntimeException("Errore durante l'esecuzione della query 20", e);
         }
 
-        return Optional.empty();
     }
 
 }
