@@ -9,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
+
 public class TrainerCoursesOfTheCurrentYearQuery implements Query {
 
     //OP-15	Elenco dei corsi tenuti da un trainer in un determinato anno
@@ -59,10 +62,13 @@ public class TrainerCoursesOfTheCurrentYearQuery implements Query {
                     ) {
                 preparedStatement.setString(1, trainerCf);
                 final ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    return Optional.of(resultSet);
+                CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
+                crs.populate(resultSet);
+
+                if (!crs.isBeforeFirst()) {
+                    return Optional.empty();
                 }
-                resultSet.close();
+                return Optional.of(crs);
             } catch (final SQLException e) {
                 throw new RuntimeException(e);
             }
