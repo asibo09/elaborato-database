@@ -59,16 +59,15 @@ public class LessonsOfMemberBookedInMonthQuery implements Query {
             statement.setInt(3, mese);
             statement.setInt(4, anno);
 
-            try (ResultSet rs = statement.executeQuery()) {
-                CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
-                crs.populate(rs);
+            ResultSet rs = statement.executeQuery();
+            CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
+            crs.populate(rs);
 
-                if (!crs.isBeforeFirst()) { // nessuna riga
-                    return Optional.empty();
-                }
-
-                return Optional.of(crs); // CachedRowSet implementa ResultSet
+            if (!crs.isBeforeFirst()) { // nessuna riga
+                return Optional.empty();
             }
+
+            return Optional.of(crs); // CachedRowSet implementa ResultSet
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

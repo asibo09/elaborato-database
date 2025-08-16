@@ -35,15 +35,15 @@ public class DailyWeightRoomAttendanceQuery implements Query {
         try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY)) {
             preparedStatement.setDate(1, date);
 
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                CachedRowSet cachedRowSet = RowSetProvider.newFactory().createCachedRowSet();
-                cachedRowSet.populate(resultSet);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            CachedRowSet cachedRowSet = RowSetProvider.newFactory().createCachedRowSet();
+            cachedRowSet.populate(resultSet);
 
-                if (!cachedRowSet.isBeforeFirst()) { 
-                    return Optional.empty();
-                }
-                return Optional.of(cachedRowSet);
+            if (!cachedRowSet.isBeforeFirst()) { 
+                return Optional.empty();
             }
+            return Optional.of(cachedRowSet);
+            
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
