@@ -22,11 +22,13 @@ public class View {
     private final JButton macchinari;
     private final JButton trainer;
     private final JButton scheda;
+    private final JButton segnalazioni;
     private final JPanel personaPanel;
     private final JPanel corsiPanel;
     private final JPanel macchinariPanel;
     private final JPanel trainerPanel;
     private final JPanel schedaPanel;
+    private final JPanel segnalazioniPanel;
 
     public View(final BridgeCV bridgeCV) {
         frame = new JFrame("My Application");
@@ -37,12 +39,14 @@ public class View {
         macchinari = new JButton("Macchinari");
         trainer = new JButton("Trainer");
         scheda = new JButton("Schede");
+        segnalazioni = new JButton("Segnalazioni");
 
         personaPanel = new Persona(bridgeCV);
         corsiPanel = new Corsi(bridgeCV);
         macchinariPanel = new Macchinari(bridgeCV);
         trainerPanel = new Trainer(bridgeCV);
         schedaPanel = new Scheda(bridgeCV);
+        segnalazioniPanel = new Segnalazioni(bridgeCV);
 
         menu.setFloatable(false);
         menu.add(persona);
@@ -50,6 +54,7 @@ public class View {
         menu.add(macchinari);
         menu.add(trainer);
         menu.add(scheda);
+        menu.add(segnalazioni);
 
         frame.setLayout(new BorderLayout());
         frame.add(menu, BorderLayout.PAGE_START);
@@ -94,6 +99,14 @@ public class View {
         scheda.addActionListener(e -> {
             frame.remove(panel);
             panel = schedaPanel;
+            frame.add(panel, BorderLayout.CENTER);
+            frame.revalidate();
+            frame.repaint();
+        });
+
+        segnalazioni.addActionListener(e -> {
+            frame.remove(panel);
+            panel = segnalazioniPanel;
             frame.add(panel, BorderLayout.CENTER);
             frame.revalidate();
             frame.repaint();
