@@ -50,9 +50,9 @@ public interface FactoryQuery {
 
     public Query MostUsedMachinesWeekQuery(final Date startDate, final Date endDate);
 
-    public Query RegisterSubscriptionQuery(final String dataStipulazione,
+    public Query RegisterSubscriptionQuery(final Date dataStipulazione,
                                            final String tipo,
-                                           final java.sql.Time durata,
+                                           final int durata,
                                            final String cf);
 
     public Query SearchMemberAndCheckValiditySubscription(final String nome, final String cognome);

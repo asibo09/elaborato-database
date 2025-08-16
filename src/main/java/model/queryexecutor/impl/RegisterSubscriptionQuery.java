@@ -4,6 +4,7 @@ import controller.Controller;
 import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,18 +14,18 @@ public class RegisterSubscriptionQuery implements Query {
 
     //OP-2	Registrare un abbonamento per un iscritto
 
-    private final String QUERY = "INSERT INTO abbonamento_utenti (Data stipulazione, Tipo, Durata, CF) VALUES (?, ?, ?, ?)";
+    private final String QUERY = "INSERT INTO abbonamento_utente (Data_stipulazione, Tipo, Durata, CF) VALUES (?, ?, ?, ?)";
 
-    private final String dataStipulazione;
+    private final Date dataStipulazione;
     private final String tipo;
-    private final java.sql.Time durata;
+    private final int durata;
     private final String cf;
     private final Connection connection;
 
     public RegisterSubscriptionQuery(
-            final String dataStipulazione,
+            final Date dataStipulazione,
             final String tipo,
-            final java.sql.Time durata,
+            final int durata,
             final String cf,
             final Connection connection
     ) {
@@ -40,9 +41,9 @@ public class RegisterSubscriptionQuery implements Query {
         try (
                 PreparedStatement preparedStatement = connection.prepareStatement(this.QUERY)
                 ){
-            preparedStatement.setString(1, dataStipulazione);
+            preparedStatement.setDate(1, dataStipulazione);
             preparedStatement.setString(2, tipo);
-            preparedStatement.setTime(3, durata);
+            preparedStatement.setInt(3, durata);
             preparedStatement.setString(4, cf);
             preparedStatement.executeUpdate();
         } catch (final SQLException e) {

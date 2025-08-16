@@ -105,9 +105,9 @@ public class FactoryQueryImpl implements FactoryQuery {
 
     @Override
     public Query RegisterSubscriptionQuery(
-            final String dataStipulazione,
+            final Date dataStipulazione,
             final String tipo,
-            final Time durata,
+            final int durata,
             final String cf) {
         return new RegisterSubscriptionQuery(dataStipulazione, tipo, durata, cf, connection);
     }

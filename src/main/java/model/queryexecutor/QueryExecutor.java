@@ -103,10 +103,11 @@ public class QueryExecutor {
 
             case REGISTERSUBSCRIPTION:
                 this.resultSet = this.factoryQuery.RegisterSubscriptionQuery(
-                        parameters.get(QueryParameters.DATASTIPULAZIONE.toString()),
-                        parameters.get(QueryParameters.TIPO.toString()),
-                        java.sql.Time.valueOf(parameters.get(QueryParameters.DURATA.toString())),
-                        parameters.get(QueryParameters.CF.toString())).execute();
+                        java.sql.Date.valueOf(parameters.get(QueryParameters.DATASTIPULAZIONE.toString())), 
+                        parameters.get(QueryParameters.TIPO.toString()),                                   
+                        Integer.parseInt(parameters.get(QueryParameters.DURATA.toString())),               
+                        parameters.get(QueryParameters.CF.toString())                                      
+                        ).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case SEARCHMEMBERANDCHECKVALIDITYSUBSCRIPTION:

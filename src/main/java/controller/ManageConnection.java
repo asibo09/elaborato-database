@@ -11,7 +11,7 @@ public class ManageConnection {
     private final Connection connection;
 
     public ManageConnection() throws SQLException {
-        this.connection = DriverManager.getConnection(url, "root", "Mparolo16#");
+        this.connection = DriverManager.getConnection(url, "root", "prova");
     }
 
     public void closeConnection() throws SQLException {
