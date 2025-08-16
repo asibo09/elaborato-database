@@ -13,26 +13,30 @@ public class Corsi extends BaseView {
     private final JButton lessonsByCourseEditionButton;
     private final JButton exercisesByMuscleGroupButton;
     private final JButton mostLessonByTrainerInMonthButton;
+    private final JButton ChangeLessonRoomButton;
 
     public Corsi(final BridgeCV bridgeCV) {
         super(bridgeCV);
 
-        this.northWestPanel.setLayout(new GridLayout(3, 0));
+        this.northWestPanel.setLayout(new GridLayout(4, 0));
 
         // Creazione bottoni
         this.lessonsByCourseEditionButton = new JButton("Lezioni per edizione corso");
         this.exercisesByMuscleGroupButton = new JButton("Esercizi per gruppo muscolare");
         this.mostLessonByTrainerInMonthButton = new JButton("Trainer con più lezioni nel mese");
+        this.ChangeLessonRoomButton = new JButton("Spostare lezione in un'altra sala");
 
         // Colore bianco per tutti i bottoni
         this.lessonsByCourseEditionButton.setBackground(Color.WHITE);
         this.exercisesByMuscleGroupButton.setBackground(Color.WHITE);
         this.mostLessonByTrainerInMonthButton.setBackground(Color.WHITE);
+        this.ChangeLessonRoomButton.setBackground(Color.WHITE);
 
         // Aggiunta bottoni al pannello
         northWestPanel.add(this.lessonsByCourseEditionButton);
         northWestPanel.add(this.exercisesByMuscleGroupButton);
         northWestPanel.add(this.mostLessonByTrainerInMonthButton);
+        northWestPanel.add(this.ChangeLessonRoomButton);
 
         // ActionListener per ogni bottone
 
@@ -65,6 +69,26 @@ public class Corsi extends BaseView {
         this.mostLessonByTrainerInMonthButton.addActionListener(e -> {
             this.southCenterPanel.removeAll();
             this.bridgeCV.setQueryName(QueryName.MOSTLESSONBYTRAINERINMONTH);
+
+            repaintPanel();
+        });
+
+        // CHANGE LESSON ROOM (Data, Ora, Vecchia sala, Nuova sala)
+        this.ChangeLessonRoomButton.addActionListener(e -> {
+            this.southCenterPanel.removeAll();
+            this.bridgeCV.setQueryName(QueryName.CHANGELESSONROOM); 
+
+            this.southCenterPanel.add(new JLabel("Data"));
+            this.southCenterPanel.add(parameters.get(QueryParameters.DATA.toString()));
+
+            this.southCenterPanel.add(new JLabel("Ora"));
+            this.southCenterPanel.add(parameters.get(QueryParameters.ORA.toString()));
+
+            this.southCenterPanel.add(new JLabel("Vecchia sala"));
+            this.southCenterPanel.add(parameters.get(QueryParameters.VECCHIASALA.toString()));
+
+            this.southCenterPanel.add(new JLabel("Nuova sala"));
+            this.southCenterPanel.add(parameters.get(QueryParameters.NUOVASALA.toString()));
 
             repaintPanel();
         });
