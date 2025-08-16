@@ -9,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
+
 public class MemberWeeklyAttendance implements Query {
     
     //OP-29	Visualizzare la media settimanale delle presenze di un iscritto
@@ -42,13 +45,20 @@ public class MemberWeeklyAttendance implements Query {
                 ){
             statement.setString(1, nome);
             statement.setString(2, cognome);
-            final ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()) {
-                return Optional.of(resultSet);
+            
+            try (ResultSet rs = statement.executeQuery()) {
+                CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
+                crs.populate(rs);
+
+                if (!crs.isBeforeFirst()) { // nessun risultato
+                    return Optional.empty();
+                }
+
+                return Optional.of(crs);
             }
         } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.empty();
+        
     }
 }

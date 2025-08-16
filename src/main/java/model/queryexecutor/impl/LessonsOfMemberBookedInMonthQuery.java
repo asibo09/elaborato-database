@@ -6,9 +6,12 @@ import model.queryexecutor.api.Query;
 import java.sql.*;
 import java.util.Optional;
 
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
+
 public class LessonsOfMemberBookedInMonthQuery implements Query {
 
-    //OP-13	Elenca tutte le lezioni a cui un iscritto si è prenotato o presentato in un    determinato mese di un determinato anno
+    //OP-13	Elenca tutte le lezioni a cui un iscritto si è prenotato o presentato in un determinato mese di un determinato anno
 
     private static final String QUERY =
     "SELECT * " +
@@ -50,20 +53,25 @@ public class LessonsOfMemberBookedInMonthQuery implements Query {
 
     @Override
     public Optional<ResultSet> execute() {
-        try (
-                PreparedStatement statement = connection.prepareStatement(QUERY);
-                ){
-            statement.setString(1, cf); //partecipazioni
-            statement.setString(2, cf); //prenotazioni
+        try (PreparedStatement statement = connection.prepareStatement(QUERY)) {
+            statement.setString(1, cf); // partecipazioni
+            statement.setString(2, cf); // prenotazioni
             statement.setInt(3, mese);
             statement.setInt(4, anno);
-            final ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()) {
-                return Optional.of(resultSet);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
+                crs.populate(rs);
+
+                if (!crs.isBeforeFirst()) { // nessuna riga
+                    return Optional.empty();
+                }
+
+                return Optional.of(crs); // CachedRowSet implementa ResultSet
             }
-        } catch (final SQLException e) {
+
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.empty();
     }
 }
