@@ -151,7 +151,7 @@ public class FactoryQueryImpl implements FactoryQuery {
     }
 
     @Override
-    public Query WeeklyAttendanceAVGCalculatorByMonthQuery(final Date month) {
+    public Query WeeklyAttendanceAVGCalculatorByMonthQuery(final int month) {
         return new WeeklyAttendanceAVGCalculatorByMonthQuery(month, connection);
     }
 }

@@ -70,5 +70,5 @@ public interface FactoryQuery {
 
     public Query ViewWorkoutPlanQuery(final String cf);
 
-    public Query WeeklyAttendanceAVGCalculatorByMonthQuery(final java.sql.Date month);
+    public Query WeeklyAttendanceAVGCalculatorByMonthQuery(final int month);
 }

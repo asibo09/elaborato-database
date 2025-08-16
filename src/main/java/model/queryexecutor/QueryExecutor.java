@@ -148,8 +148,8 @@ public class QueryExecutor {
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case WEEKLYATTENDANCEAVGCALCULATORBYMONTH:
-                this.resultSet = this.factoryQuery.WeeklyAttendanceAVGCalculatorByMonthQuery(
-                        java.sql.Date.valueOf(parameters.get(QueryParameters.MESE.toString()))).execute();
+                int mese = Integer.parseInt(parameters.get(QueryParameters.MESE.toString()));
+                this.resultSet = this.factoryQuery.WeeklyAttendanceAVGCalculatorByMonthQuery(mese).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             default:
