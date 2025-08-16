@@ -12,7 +12,7 @@ public class AddReportQuery implements Query {
 
     //OP-12	Inserimento di una segnalazione
 
-    private final String QUERY = "INSERT INTO storico_segnalazioni (Numero segnalazione, Data, Ora, Stato, Descrizione, Numero Macchinario, Nome Macchinario)" +
+    private final String QUERY = "INSERT INTO STORICO_SEGNALAZIONI (Numero_Segnalazione, Data, Ora, Stato, Descrizione, Numero_macchinario, Nome_macchinario)" +
             "VALUES (?, ?, ?, ?, ?, ?, ?)";
     private final String numeroSegnalazione;
     private final java.sql.Date date;
