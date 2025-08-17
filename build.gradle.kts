@@ -27,7 +27,8 @@ dependencies {
     implementation("com.omertron:API-OMDB:1.5")
     implementation("org.jooq:jool:0.9.15")
     
-    implementation("mysql:mysql-connector-java:8.0.33")
+    //implementation("mysql:mysql-connector-java:8.0.33")
+    implementation("org.mariadb.jdbc:mariadb-java-client:3.3.2")
 
 
     /*
