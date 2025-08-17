@@ -32,8 +32,8 @@ public interface FactoryQuery {
     public Query ChangeLessonRoomQuery(
             final Date data,
             final Time ora,
-            final String vecchiaSala,
-            final String nuovaSala);
+            final int vecchiaSala,
+            final int nuovaSala);
 
     public Query DailyWeightRoomAttendanceQuery(final java.sql.Date date);
 

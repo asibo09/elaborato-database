@@ -16,8 +16,8 @@ public class ChangeLessonRoomQuery implements Query {
     //OP-21	Spostare una lezione in un'altra sala
 
     private final String COPY_LEZIONE = 
-    "INSERT INTO LEZIONE (Data, Ora, Codice_sala, Data_inizio, Nome_corso) " +
-    "SELECT Data, Ora, Codice_sala " +
+    "INSERT INTO LEZIONE (Data, Ora, Codice_sala, Data_inizio, Nome) " +
+    "SELECT Data, Ora, ?, Data_inizio, Nome " +
     "FROM LEZIONE " +
     "WHERE Data = ? " +
     "AND Ora = ? " +
@@ -43,16 +43,16 @@ public class ChangeLessonRoomQuery implements Query {
 
     private final Date data;
     private final Time ora;
-    private final String vecchiaSala;
-    private final String nuovaSala;
+    private final int vecchiaSala;
+    private final int nuovaSala;
     private final Connection conn;
 
     public ChangeLessonRoomQuery(
             final Connection connection,
             final Date data,
             final Time ora,
-            final String vecchiaSala,
-            final String nuovaSala
+            final int vecchiaSala,
+            final int nuovaSala
     ) {
         this.conn = connection;
         this.data = data;
@@ -73,30 +73,30 @@ public class ChangeLessonRoomQuery implements Query {
                 PreparedStatement deleteLezione = conn.prepareStatement(DELETE_LEZIONE)
             ) {
                 //copia nuova lezione
-                copyLezione.setString(1, nuovaSala);
+                copyLezione.setInt(1, nuovaSala);
                 copyLezione.setDate(2, data);
                 copyLezione.setTime(3, ora);
-                copyLezione.setString(4, vecchiaSala);
+                copyLezione.setInt(4, vecchiaSala);
                 copyLezione.executeUpdate();
 
                 //aggiorna prenotazioni
-                updatePrenotazioni.setString(1, nuovaSala);
+                updatePrenotazioni.setInt(1, nuovaSala);
                 updatePrenotazioni.setDate(2, data);
                 updatePrenotazioni.setTime(3, ora);
-                updatePrenotazioni.setString(4, vecchiaSala);
+                updatePrenotazioni.setInt(4, vecchiaSala);
                 updatePrenotazioni.executeUpdate();
 
                 //aggiorna attrezzi
-                updateAttrezzi.setString(1, nuovaSala);
+                updateAttrezzi.setInt(1, nuovaSala);
                 updateAttrezzi.setDate(2, data);
                 updateAttrezzi.setTime(3, ora);
-                updateAttrezzi.setString(4, vecchiaSala);
+                updateAttrezzi.setInt(4, vecchiaSala);
                 updateAttrezzi.executeUpdate();
 
                 //elimina vecchia lezione
                 deleteLezione.setDate(1, data);
                 deleteLezione.setTime(2, ora);
-                deleteLezione.setString(3, vecchiaSala);
+                deleteLezione.setInt(3, vecchiaSala);
                 deleteLezione.executeUpdate();
 
                 conn.commit();

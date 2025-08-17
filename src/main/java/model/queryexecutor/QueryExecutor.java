@@ -51,8 +51,8 @@ public class QueryExecutor {
                 this.resultSet = this.factoryQuery.ChangeLessonRoomQuery(
                         java.sql.Date.valueOf(parameters.get(QueryParameters.DATA.toString())),
                         java.sql.Time.valueOf(parameters.get(QueryParameters.ORA.toString())),
-                        parameters.get(QueryParameters.VECCHIASALA.toString()),
-                        parameters.get(QueryParameters.NUOVASALA.toString())).execute();
+                        Integer.parseInt(parameters.get(QueryParameters.VECCHIASALA.toString())),
+                        Integer.parseInt(parameters.get(QueryParameters.NUOVASALA.toString()))).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
             case DAILYWEIGTHROOMATTENDANCE:

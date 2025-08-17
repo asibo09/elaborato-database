@@ -50,8 +50,8 @@ public class FactoryQueryImpl implements FactoryQuery {
     public Query ChangeLessonRoomQuery(
             final Date data,
             final Time ora,
-            final String vecchiaSala,
-            final String nuovaSala) {
+            final int vecchiaSala,
+            final int nuovaSala) {
         return new ChangeLessonRoomQuery(connection, data, ora, vecchiaSala, nuovaSala);
     }
 
