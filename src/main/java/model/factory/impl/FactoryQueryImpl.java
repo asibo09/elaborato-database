@@ -34,7 +34,6 @@ public class FactoryQueryImpl implements FactoryQuery {
 
     @Override
     public Query createAddReportQuery(
-            final String numeroSegnalazione,
             final Date date,
             final Time time,
             final String cf,
@@ -42,7 +41,7 @@ public class FactoryQueryImpl implements FactoryQuery {
             final String description,
             final int machineId,
             final String machineName) {
-        return new AddReportQuery(connection, numeroSegnalazione, date, time, cf, state, description, machineId,
+        return new AddReportQuery(connection, date, time, cf, state, description, machineId,
                 machineName);
     }
 

@@ -38,13 +38,10 @@ public class Segnalazioni extends BaseView {
 
         // ActionListener per ogni bottone
 
-        // ADD REPORT (Numero segnalazione, Data, Ora, Stato, Descrizione, Numero Macchinario, Nome Macchinario, CF)
+        // ADD REPORT (Data, Ora, Stato, Descrizione, Numero Macchinario, Nome Macchinario, CF)
         this.addReportButton.addActionListener(e -> {
             this.southCenterPanel.removeAll();
             this.bridgeCV.setQueryName(QueryName.ADDREPORTQUERY);
-
-            this.southCenterPanel.add(new JLabel("Numero segnalazione"));
-            this.southCenterPanel.add(parameters.get(QueryParameters.NUMEROSEGNALAZIONE.toString()));
 
             this.southCenterPanel.add(new JLabel("Data"));
             this.southCenterPanel.add(parameters.get(QueryParameters.DATA.toString()));

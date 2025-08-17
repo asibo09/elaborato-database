@@ -37,7 +37,6 @@ public class QueryExecutor {
 
             case ADDREPORTQUERY:
                 this.resultSet = this.factoryQuery.createAddReportQuery(
-                        parameters.get(QueryParameters.NUMEROSEGNALAZIONE.toString()),
                         java.sql.Date.valueOf(parameters.get(QueryParameters.DATA.toString())),
                         java.sql.Time.valueOf(parameters.get(QueryParameters.ORA.toString())),
                         parameters.get(QueryParameters.CF.toString()),

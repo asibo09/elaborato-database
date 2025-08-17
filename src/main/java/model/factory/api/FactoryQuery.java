@@ -20,7 +20,6 @@ public interface FactoryQuery {
             final String numeroTelefono);
 
     public Query createAddReportQuery(
-            final String numeroSegnalazione,
             final java.sql.Date date,
             final java.sql.Time time,
             final String cf,
