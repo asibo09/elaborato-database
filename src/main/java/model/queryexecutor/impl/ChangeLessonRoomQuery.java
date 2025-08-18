@@ -100,6 +100,14 @@ public class ChangeLessonRoomQuery implements Query {
                 deleteLezione.executeUpdate();
 
                 conn.commit();
+
+                // Prepara e ritorna il ResultSet di Lezione
+                PreparedStatement select = conn.prepareStatement("SELECT * FROM LEZIONE WHERE Data = ? AND Ora = ?");
+                select.setDate(1, data);
+                select.setTime(2, ora);
+                ResultSet rs = select.executeQuery();
+                return Optional.of(rs);
+
             } catch (final SQLException e) {
                 conn.rollback();
                 throw new RuntimeException(e);
@@ -108,7 +116,6 @@ public class ChangeLessonRoomQuery implements Query {
             throw new RuntimeException(e);
         }
 
-        return Optional.empty();
     }
 
 }

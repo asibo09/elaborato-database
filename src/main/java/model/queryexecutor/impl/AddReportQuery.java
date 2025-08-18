@@ -57,9 +57,15 @@ public class AddReportQuery implements Query {
             preparedStatement.setInt(6, machineId);
             preparedStatement.setString(7, machineName);
             preparedStatement.executeUpdate();
+            
+            // Dopo l'insert fai la select di tutta la tabella
+            String selectQuery = "SELECT * FROM storico_segnalazioni";
+            PreparedStatement selectStatement = connection.prepareStatement(selectQuery);
+            ResultSet rs = selectStatement.executeQuery();
+
+            return Optional.of(rs);
         } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.empty();
     }
 }

@@ -46,6 +46,13 @@ public class RegisterSubscriptionQuery implements Query {
             preparedStatement.setInt(3, durata);
             preparedStatement.setString(4, cf);
             preparedStatement.executeUpdate();
+
+            // Dopo l'insert fai la select di tutta la tabella
+            String selectQuery = "SELECT * FROM abbonamento_utente ";
+            PreparedStatement selectStatement = connection.prepareStatement(selectQuery);
+            ResultSet rs = selectStatement.executeQuery();
+        
+            return Optional.of(rs);
         } catch (final SQLException e) {
             e.printStackTrace();;
         }

@@ -70,8 +70,13 @@ public class AddGymMemberQuery implements Query {
 
             // Esegue la query
             preparedStatement.executeUpdate();
-            // Non ci aspettiamo un ResultSet per un'operazione INSERT, quindi restituiamo null
-            return Optional.empty();
+            
+            // Dopo l'insert fai la select di tutta la tabella iscritto
+            String selectQuery = "SELECT * FROM iscritto";
+            PreparedStatement selectStatement = connection.prepareStatement(selectQuery);
+            ResultSet rs = selectStatement.executeQuery();
+
+            return Optional.of(rs);
 
         } catch (final SQLException e) {
             return Optional.empty();
