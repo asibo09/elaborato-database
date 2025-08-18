@@ -19,6 +19,7 @@ public class BaseView extends JPanel {
     protected final JPanel southWestPanel;
     protected final JPanel southCenterPanel;
     protected final JButton executeButton;
+    private final JButton clearButton;
 
     // ogni area e associata ad una stringa che la identifica univocamente e che poi
     // passo come parametri al bridgeCV
@@ -57,7 +58,16 @@ public class BaseView extends JPanel {
         this.executeButton = new JButton("Execute");
         this.executeButton.setBackground(Color.WHITE);
         this.executeButton.setPreferredSize(new Dimension(this.executeButton.getPreferredSize().width, 40));
-        this.southWestPanel.add(executeButton, BorderLayout.SOUTH);
+
+        this.clearButton = new JButton("Clear");
+        this.clearButton.setBackground(Color.WHITE);
+        this.clearButton.setPreferredSize(new Dimension(this.clearButton.getPreferredSize().width, 40));
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.add(executeButton);
+        buttonPanel.add(clearButton);
+        this.southWestPanel.add(buttonPanel, BorderLayout.SOUTH);
+
 
         // layout pannello a sinistra sud centro
         this.southCenterPanel.setLayout(new GridLayout(25, 0));
@@ -77,6 +87,17 @@ public class BaseView extends JPanel {
         estPanel.setLayout(new BorderLayout());
         estPanel.add(tableScrollPane, BorderLayout.CENTER);
 
+        this.clearButton.addActionListener(e -> {
+            for (JTextField field : parameters.values()) {
+                field.setText("");
+            }
+
+            // svuoto la tabella
+        tableModel.setRowCount(0);
+        tableModel.setColumnCount(0);
+        });
+
+
         this.executeButton.addActionListener(e -> {
             final Map<String, String> newParametersMap = this.parameters.entrySet().stream()
                     .collect(HashMap<String, String>::new,
@@ -87,6 +108,8 @@ public class BaseView extends JPanel {
             updateResultTable(resultMap);
         });
     }
+
+    
 
     private void updateResultTable(Map<String, List<String>> resultMap) {
         tableModel.setRowCount(0);
