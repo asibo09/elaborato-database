@@ -13,28 +13,31 @@ public class Segnalazioni extends BaseView {
     private final JButton addReportButton;
     private final JButton lastYearReportsButton;
     private final JButton unresolvedReportsOlderThanThreeDaysButton;
+    private final JButton resolveReportButton;
 
     public Segnalazioni(final BridgeCV bridgeCV) {
         super(bridgeCV);
 
-        this.northWestPanel.setLayout(new GridLayout(3, 0));
+        this.northWestPanel.setLayout(new GridLayout(4, 0));
 
 
         // Creazione bottoni
         this.addReportButton = new JButton("Inserimento segnalazione");
         this.lastYearReportsButton = new JButton("Segnalazioni nell'ultimo anno");
         this.unresolvedReportsOlderThanThreeDaysButton = new JButton("Segnalazioni non risolte da più di tre giorni");
-        
+        this.resolveReportButton = new JButton("Risoluzione segnalazione");
 
         // Colore bianco per tutti i bottoni
         this.addReportButton.setBackground(Color.WHITE);
         this.lastYearReportsButton.setBackground(Color.WHITE);
         this.unresolvedReportsOlderThanThreeDaysButton.setBackground(Color.WHITE);
+        this.resolveReportButton.setBackground(Color.WHITE);
 
         // Aggiunta bottoni al pannello
         northWestPanel.add(this.addReportButton);
         northWestPanel.add(this.lastYearReportsButton);
         northWestPanel.add(this.unresolvedReportsOlderThanThreeDaysButton);
+        northWestPanel.add(this.resolveReportButton);
 
         // ActionListener per ogni bottone
 
@@ -86,6 +89,21 @@ public class Segnalazioni extends BaseView {
             repaintPanel();
         });
 
-        
+        // RESOLVE REPORT (Numero Segnalazione, Nome Macchinario, Numero Macchinario)
+        this.resolveReportButton.addActionListener(e -> {
+            this.southCenterPanel.removeAll();
+            this.bridgeCV.setQueryName(QueryName.RESOLVEREPORTQUERY);
+
+            this.southCenterPanel.add(new JLabel("Numero Segnalazione"));
+            this.southCenterPanel.add(parameters.get(QueryParameters.NUMEROSEGNALAZIONE.toString()));
+
+            this.southCenterPanel.add(new JLabel("Nome Macchinario"));
+            this.southCenterPanel.add(parameters.get(QueryParameters.NOMEMACCHINARIO.toString()));
+
+            this.southCenterPanel.add(new JLabel("Numero Macchinario"));
+            this.southCenterPanel.add(parameters.get(QueryParameters.NUMEROMACCHINARIO.toString()));
+
+            repaintPanel();
+        });
     }
 }

@@ -55,6 +55,10 @@ public interface FactoryQuery {
                                            final int durata,
                                            final String cf);
 
+    public Query ResolveReportQuery(final int numero_segnalazione, 
+                                    final String nome_macchinario,
+                                    final int numero_macchinario);
+
     public Query SearchMemberAndCheckValiditySubscription(final String nome, final String cognome);
 
     public Query SubscriptionsExpiringQuery();

@@ -106,6 +106,13 @@ public class QueryExecutor {
                         ).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
+            case RESOLVEREPORTQUERY:
+                this.resultSet = this.factoryQuery.ResolveReportQuery(
+                        Integer.parseInt(parameters.get(QueryParameters.NUMEROSEGNALAZIONE.toString())),
+                        parameters.get(QueryParameters.NOMEMACCHINARIO.toString()),
+                        Integer.parseInt(parameters.get(QueryParameters.NUMEROMACCHINARIO.toString()))).execute();
+                return new ManipulationResult(this.resultSet).getManupulatedResult();
+
             case SEARCHMEMBERANDCHECKVALIDITYSUBSCRIPTION:
                 this.resultSet = this.factoryQuery.SearchMemberAndCheckValiditySubscription(
                         parameters.get(QueryParameters.NOME.toString()),

@@ -111,6 +111,14 @@ public class FactoryQueryImpl implements FactoryQuery {
     }
 
     @Override
+    public Query ResolveReportQuery(
+        int numero_segnalazione,
+        String nome_macchinario, 
+        int numero_macchinario) {
+        return new ResolveReportQuery(connection, numero_segnalazione, nome_macchinario, numero_macchinario);
+    }
+
+    @Override
     public Query SearchMemberAndCheckValiditySubscription(
             final String nome,
             final String cognome) {
@@ -152,4 +160,5 @@ public class FactoryQueryImpl implements FactoryQuery {
     public Query WeeklyAttendanceAVGCalculatorByMonthQuery(final int month) {
         return new WeeklyAttendanceAVGCalculatorByMonthQuery(month, connection);
     }
+
 }
