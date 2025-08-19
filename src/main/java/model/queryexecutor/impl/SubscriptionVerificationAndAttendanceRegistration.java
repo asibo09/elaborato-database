@@ -115,6 +115,13 @@ public class SubscriptionVerificationAndAttendanceRegistration implements Query 
                 preparedStatement.setDate(5, this.data);
                 preparedStatement.setTime(6, this.ora);
                 preparedStatement.executeUpdate();
+
+                // Dopo l'insert fai la select di tutta la tabella
+                String selectQuery = "SELECT * FROM presenza_sala_pesi";
+                PreparedStatement selectStatement = connection.prepareStatement(selectQuery);
+                ResultSet rs = selectStatement.executeQuery();
+                return Optional.of(rs);
+
             } catch (final SQLException e) {
                 throw new RuntimeException(e);
             }

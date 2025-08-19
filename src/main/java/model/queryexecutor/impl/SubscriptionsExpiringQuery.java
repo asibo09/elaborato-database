@@ -16,7 +16,8 @@ public class SubscriptionsExpiringQuery implements Query {
     private final String QUERY =
     "SELECT *, DATEDIFF(DATE_ADD(Data_stipulazione, INTERVAL Durata DAY), CURDATE()) AS GiorniResidui " +
     "FROM abbonamento_utente " +
-    "WHERE DATEDIFF(DATE_ADD(Data_stipulazione, INTERVAL Durata DAY), CURDATE()) BETWEEN 0 AND 7 ";
+    "WHERE DATEDIFF(DATE_ADD(Data_stipulazione, INTERVAL Durata DAY), CURDATE()) BETWEEN 0 AND 7 " +
+    "ORDER BY GiorniResidui ASC";
     private final Connection connection;
 
     public SubscriptionsExpiringQuery(final Connection connection) {
