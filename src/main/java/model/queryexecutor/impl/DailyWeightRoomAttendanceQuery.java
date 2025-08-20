@@ -15,7 +15,7 @@ public class DailyWeightRoomAttendanceQuery implements Query {
 
     // OP-14 Visualizzare presenze in sala pesi per un determinato giorno
     private final String QUERY = 
-        "SELECT I.CF, I.Nome, I.Cognome, P.Data, P.Ora, COUNT(*) AS numPresenze " +
+        "SELECT I.CF, I.Nome, I.Cognome, P.Data, P.Ora " +
         "FROM PRESENZA_SALA_PESI P " +
         "JOIN ISCRITTO I ON P.CF = I.CF " +
         "WHERE P.Data = ? " +

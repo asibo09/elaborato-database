@@ -48,7 +48,7 @@ public class RegisterSubscriptionQuery implements Query {
             preparedStatement.executeUpdate();
 
             // Dopo l'insert fai la select di tutta la tabella
-            String selectQuery = "SELECT * FROM abbonamento_utente ";
+            String selectQuery = "SELECT * FROM abbonamento_utente ORDER BY Data_stipulazione, Durata, Tipo, CF";
             PreparedStatement selectStatement = connection.prepareStatement(selectQuery);
             ResultSet rs = selectStatement.executeQuery();
         

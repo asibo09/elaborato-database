@@ -23,7 +23,7 @@ public class ViewWorkoutPlanQuery implements Query {
     "AND M.Codice_scheda = C.Codice_scheda " +
     "AND M.Posizione = C.Posizione " +
     "AND U.CF = ? " +
-    "ORDER BY M.Posizione" ;
+    "ORDER BY M.Codice_scheda, M.Posizione" ;
 
     private final String CF;
     private final Connection connection;

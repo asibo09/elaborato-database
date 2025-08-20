@@ -117,7 +117,7 @@ public class SubscriptionVerificationAndAttendanceRegistration implements Query 
                 preparedStatement.executeUpdate();
 
                 // Dopo l'insert fai la select di tutta la tabella
-                String selectQuery = "SELECT * FROM presenza_sala_pesi";
+                String selectQuery = "SELECT * FROM presenza_sala_pesi ORDER BY Data, Ora ";
                 PreparedStatement selectStatement = connection.prepareStatement(selectQuery);
                 ResultSet rs = selectStatement.executeQuery();
                 return Optional.of(rs);
