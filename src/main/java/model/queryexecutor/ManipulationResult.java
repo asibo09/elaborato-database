@@ -29,6 +29,7 @@ public class ManipulationResult {
                         resultMap.get(columnName).add(resultSet.getString(i));
                     }
                 }
+                this.rs.get().close();
                 return resultMap;
             }
         } catch (final SQLException e) {

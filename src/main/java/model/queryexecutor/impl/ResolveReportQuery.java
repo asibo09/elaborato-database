@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
+
 public class ResolveReportQuery implements Query {
 
     // OP-30 Aggiornamento lo stato di una segnalazione a "Risolto"
@@ -16,6 +19,8 @@ public class ResolveReportQuery implements Query {
         "UPDATE storico_segnalazioni SET Stato = 'Risolto' " +
         "WHERE Numero_segnalazione = ? AND Nome_macchinario = ? AND Numero_macchinario = ?";
 
+    private static final String selectQuery = "SELECT * FROM storico_segnalazioni";
+    
     private final Connection connection;
     private final int numero_segnalazione;
     private final String nome_macchinario;
@@ -31,7 +36,8 @@ public class ResolveReportQuery implements Query {
 
     @Override
     public Optional<ResultSet> execute() {
-        try (PreparedStatement ps = connection.prepareStatement(QUERY)) {
+        try (PreparedStatement ps = connection.prepareStatement(QUERY);
+            PreparedStatement selectStatement = connection.prepareStatement(selectQuery);) {
             ps.setInt(1, numero_segnalazione);
             ps.setString(2, nome_macchinario);
             ps.setInt(3, numero_macchinario);
@@ -40,10 +46,14 @@ public class ResolveReportQuery implements Query {
 
             if (updatedRows > 0) {
                 // Dopo l'insert fai la select di tutta la tabella
-                String selectQuery = "SELECT * FROM storico_segnalazioni";
-                PreparedStatement selectStatement = connection.prepareStatement(selectQuery);
-                ResultSet rs = selectStatement.executeQuery();
-                return Optional.of(rs);
+                ResultSet resultSet = selectStatement.executeQuery();
+                CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
+                crs.populate(resultSet);
+
+                if (!crs.isBeforeFirst()) {
+                    return Optional.empty();
+                }
+                return Optional.of(crs);
             }
 
         } catch (SQLException e) {

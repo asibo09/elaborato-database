@@ -9,6 +9,10 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Optional;
+
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
+
 import java.sql.ResultSet;
 
 public class ChangeLessonRoomQuery implements Query {
@@ -41,6 +45,9 @@ public class ChangeLessonRoomQuery implements Query {
     "AND Ora = ? " +
     "AND Codice_Sala = ? "; 
 
+    private static final String SELECT_LEZIONE =
+    "SELECT * FROM LEZIONE WHERE Data = ? AND Ora = ?";
+
     private final Date data;
     private final Time ora;
     private final int vecchiaSala;
@@ -70,7 +77,8 @@ public class ChangeLessonRoomQuery implements Query {
                 PreparedStatement copyLezione = conn.prepareStatement(COPY_LEZIONE);
                 PreparedStatement updatePrenotazioni = conn.prepareStatement(UPDATE_PRENOTAZIONI);
                 PreparedStatement updateAttrezzi = conn.prepareStatement(UPDATE_ATTREZZI);
-                PreparedStatement deleteLezione = conn.prepareStatement(DELETE_LEZIONE)
+                PreparedStatement deleteLezione = conn.prepareStatement(DELETE_LEZIONE);
+                PreparedStatement selectLezione = conn.prepareStatement(SELECT_LEZIONE);
             ) {
                 //copia nuova lezione
                 copyLezione.setInt(1, nuovaSala);
@@ -102,11 +110,17 @@ public class ChangeLessonRoomQuery implements Query {
                 conn.commit();
 
                 // Prepara e ritorna il ResultSet di Lezione
-                PreparedStatement select = conn.prepareStatement("SELECT * FROM LEZIONE WHERE Data = ? AND Ora = ?");
-                select.setDate(1, data);
-                select.setTime(2, ora);
-                ResultSet rs = select.executeQuery();
-                return Optional.of(rs);
+                selectLezione.setDate(1, data);
+                selectLezione.setTime(2, ora);
+                ResultSet resultSet = selectLezione.executeQuery();
+                CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
+                crs.populate(resultSet);
+
+                if (!crs.isBeforeFirst()) {
+                    return Optional.empty();
+                }
+                
+                return Optional.of(crs);
 
             } catch (final SQLException e) {
                 conn.rollback();

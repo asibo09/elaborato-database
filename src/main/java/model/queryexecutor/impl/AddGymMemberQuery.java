@@ -5,6 +5,9 @@ import model.queryexecutor.api.Query;
 import java.sql.*;
 import java.util.Optional;
 
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
+
 public class AddGymMemberQuery implements Query {
 
     //OP-1	Aggiunta di un nuovo iscritto
@@ -21,10 +24,14 @@ public class AddGymMemberQuery implements Query {
     private Date dataNascita;
     private Date dataConsegnaCertificato;
     private final char sesso;
+    
     //La query da eseguire
     private final String QUERY = "INSERT INTO ISCRITTO (CF, Nome, Cognome, Citta, Via, Numero_civico, Numero_telefono, Data_nascita, Data_consegna_Certificato_Medico, Sesso)" +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+
+    private final String SELECT_QUERY = "SELECT * FROM iscritto";
+    
     public AddGymMemberQuery(
             final Connection connection,
             final String cf,
@@ -54,7 +61,8 @@ public class AddGymMemberQuery implements Query {
     @Override
     public Optional<ResultSet> execute() {
         try (
-                PreparedStatement preparedStatement = connection.prepareStatement(this.QUERY)
+                PreparedStatement preparedStatement = connection.prepareStatement(this.QUERY);
+                PreparedStatement selectStatement = connection.prepareStatement(this.SELECT_QUERY);
         ) {
             // Assegniamo i parametri alla query
             preparedStatement.setString(1, CF); // Codice fiscale
@@ -71,12 +79,16 @@ public class AddGymMemberQuery implements Query {
             // Esegue la query
             preparedStatement.executeUpdate();
             
-            // Dopo l'insert fai la select di tutta la tabella iscritto
-            String selectQuery = "SELECT * FROM iscritto";
-            PreparedStatement selectStatement = connection.prepareStatement(selectQuery);
-            ResultSet rs = selectStatement.executeQuery();
+            
+            ResultSet resultSet = selectStatement.executeQuery();
+            CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
+            crs.populate(resultSet);
 
-            return Optional.of(rs);
+            if (!crs.isBeforeFirst()) {
+                return Optional.empty();
+            }
+                
+            return Optional.of(crs);
 
         } catch (final SQLException e) {
             return Optional.empty();

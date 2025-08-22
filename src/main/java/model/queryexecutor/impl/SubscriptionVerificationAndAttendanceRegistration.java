@@ -9,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
+
 public class SubscriptionVerificationAndAttendanceRegistration implements Query {
 
     //OP-11	Registrazione presenza in sala pesi e verifica del tipo e della validità dell’abbonamento
@@ -26,6 +29,8 @@ public class SubscriptionVerificationAndAttendanceRegistration implements Query 
             "AND DATEDIFF(DATE_ADD(Data_stipulazione, INTERVAL Durata DAY), CURDATE()) > 0; ";
     private final String REGISTER_ATTENDANCE_QUERY = "INSERT INTO presenza_sala_pesi (Data_stipulazione, tipo, durata, cf, Data, ora)" +
             "VALUES (?, ?, ?, ?, ?, ?)";
+
+    private final String SELECT_QUERY = "SELECT * FROM presenza_sala_pesi ORDER BY Data, Ora ";
 
     private final String nome;
     private final String cognome;
@@ -107,6 +112,7 @@ public class SubscriptionVerificationAndAttendanceRegistration implements Query 
         if (verifySubscription()) {
             try(
                     PreparedStatement preparedStatement = this.connection.prepareStatement(this.REGISTER_ATTENDANCE_QUERY);
+                    PreparedStatement selectStatement = connection.prepareStatement(SELECT_QUERY);
                     ){
                 preparedStatement.setDate(1, this.dataStipulazione);
                 preparedStatement.setString(2, this.tipo);
@@ -117,10 +123,16 @@ public class SubscriptionVerificationAndAttendanceRegistration implements Query 
                 preparedStatement.executeUpdate();
 
                 // Dopo l'insert fai la select di tutta la tabella
-                String selectQuery = "SELECT * FROM presenza_sala_pesi ORDER BY Data, Ora ";
-                PreparedStatement selectStatement = connection.prepareStatement(selectQuery);
-                ResultSet rs = selectStatement.executeQuery();
-                return Optional.of(rs);
+                
+                ResultSet resultSet = selectStatement.executeQuery();
+                CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
+                crs.populate(resultSet);
+
+                if (!crs.isBeforeFirst()) {
+                return Optional.empty();
+                }
+                
+                return Optional.of(crs);
 
             } catch (final SQLException e) {
                 throw new RuntimeException(e);

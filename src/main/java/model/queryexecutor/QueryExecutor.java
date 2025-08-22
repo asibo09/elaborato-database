@@ -85,9 +85,6 @@ public class QueryExecutor {
                         parameters.get(QueryParameters.COGNOME.toString())).execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
-            case MEMBERWORKOUTPLANVIEWER:
-                // Implementazione placeholder, da completare se serve
-                return java.util.Collections.emptyMap();
 
             case MOSTLESSONBYTRAINERINMONTH:
                 this.resultSet = this.factoryQuery.MostLessonByTrainerInMonthQuery().execute();
@@ -141,9 +138,6 @@ public class QueryExecutor {
                 this.resultSet = this.factoryQuery.UnresolvedReportsOlderThanThreeDays().execute();
                 return new ManipulationResult(this.resultSet).getManupulatedResult();
 
-            case USERMONTHLYCLASSATTENDANCE:
-                // Implementazione placeholder, da completare se serve
-                return java.util.Collections.emptyMap();
 
             case VIEWWORKOUTPLANQUERY:
                 this.resultSet = this.factoryQuery.ViewWorkoutPlanQuery(

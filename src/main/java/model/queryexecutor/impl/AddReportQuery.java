@@ -8,12 +8,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
+
 public class AddReportQuery implements Query {
 
     //OP-12	Inserimento di una segnalazione
 
     private final String QUERY = "INSERT INTO storico_segnalazioni (Data, Ora, CF, Stato, Descrizione, Numero_macchinario, Nome_macchinario)" +
             "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    private static final String selectQuery = "SELECT * FROM storico_segnalazioni";
 
     private final java.sql.Date date;
     private final java.sql.Time time;
@@ -48,7 +53,7 @@ public class AddReportQuery implements Query {
     public Optional<ResultSet> execute() {
         try (
                 PreparedStatement preparedStatement = connection.prepareStatement(this.QUERY);
-                ){
+                PreparedStatement selectStatement = connection.prepareStatement(selectQuery); ){            
             preparedStatement.setDate(1, date);
             preparedStatement.setTime(2, time);
             preparedStatement.setString(3, cf);
@@ -59,11 +64,15 @@ public class AddReportQuery implements Query {
             preparedStatement.executeUpdate();
             
             // Dopo l'insert fai la select di tutta la tabella
-            String selectQuery = "SELECT * FROM storico_segnalazioni";
-            PreparedStatement selectStatement = connection.prepareStatement(selectQuery);
-            ResultSet rs = selectStatement.executeQuery();
+            ResultSet resultSet = selectStatement.executeQuery();
+            CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
+            crs.populate(resultSet);
+            if (!crs.isBeforeFirst()) {
+                return Optional.empty();
+            }
 
-            return Optional.of(rs);
+            return Optional.of(crs);
+
         } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
