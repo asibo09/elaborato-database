@@ -1,6 +1,5 @@
 package model.queryexecutor.impl;
 
-import controller.Controller;
 import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
@@ -14,7 +13,7 @@ import javax.sql.rowset.RowSetProvider;
 
 public class SubscriptionVerificationAndAttendanceRegistration implements Query {
 
-    //OP-11	Registrazione presenza in sala pesi e verifica del tipo e della validità dell’abbonamento
+    //OP-3	Registrazione presenza in sala pesi e verifica del tipo e della validità dell’abbonamento
 
     private final String VERIFY_QUERY = "SELECT * " +
             "FROM abbonamento_utente " +

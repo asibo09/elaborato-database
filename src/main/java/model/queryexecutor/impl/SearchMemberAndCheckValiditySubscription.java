@@ -1,10 +1,8 @@
 package model.queryexecutor.impl;
 
-import controller.Controller;
 import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +13,7 @@ import javax.sql.rowset.RowSetProvider;
 
 public class SearchMemberAndCheckValiditySubscription implements Query {
 
-    //OP-26	Ricerca di un iscritto e visualizzare se il suo abbonamento è ancora valido
+    //OP-16	Ricerca di un iscritto e visualizzare se il suo abbonamento è ancora valido
 
     private final String QUERY = 
     "SELECT i.*, a.Data_stipulazione, a.Tipo, a.Durata " +

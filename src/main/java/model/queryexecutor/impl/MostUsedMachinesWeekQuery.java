@@ -1,12 +1,10 @@
 package model.queryexecutor.impl;
 
-import controller.Controller;
 import model.queryexecutor.api.Query;
 
 import java.sql.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.temporal.TemporalAdjusters;
 import java.util.Optional;
 
 import javax.sql.rowset.CachedRowSet;
@@ -14,7 +12,7 @@ import javax.sql.rowset.RowSetProvider;
 
 public class MostUsedMachinesWeekQuery implements Query {
 
-    //OP-24	Visualizza i macchinari più usati in settimana
+    //OP-14	Visualizza i macchinari più usati in settimana
 
     private final String QUERY = 
     "SELECT m.Numero_macchinario, m.Nome_macchinario, COUNT(*) AS Totale_Utilizzi " +

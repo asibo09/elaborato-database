@@ -1,6 +1,6 @@
 package model.queryexecutor.impl;
 
-import controller.Controller;
+
 import model.queryexecutor.api.Query;
 
 import java.sql.*;
@@ -11,7 +11,7 @@ import javax.sql.rowset.RowSetProvider;
 
 public class SubscriptionsExpiringQuery implements Query {
 
-    //OP-23	Visualizza gli abbonamenti che scadono entro 7 giorni
+    //OP-13	Visualizza gli abbonamenti che scadono entro 7 giorni
 
     private final String QUERY =
     "SELECT *, DATEDIFF(DATE_ADD(Data_stipulazione, INTERVAL Durata DAY), CURDATE()) AS GiorniResidui " +

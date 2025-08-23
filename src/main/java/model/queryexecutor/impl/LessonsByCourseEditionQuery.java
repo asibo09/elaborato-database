@@ -1,6 +1,5 @@
 package model.queryexecutor.impl;
 
-import controller.Controller;
 import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
@@ -14,7 +13,7 @@ import javax.sql.rowset.RowSetProvider;
 
 public class LessonsByCourseEditionQuery implements Query {
 
-    //OP-18	Visualizzare elenco delle lezioni di un’edizione corso 
+    //OP-9	Visualizzare elenco delle lezioni di un’edizione corso 
 
     private final String QUERY = "SELECT L.* " +
             "FROM lezione L, edizione_corso E " +

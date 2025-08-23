@@ -1,6 +1,5 @@
 package model.queryexecutor.impl;
 
-import controller.Controller;
 import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
@@ -14,7 +13,7 @@ import javax.sql.rowset.RowSetProvider;
 
 public class WeeklyAttendanceAVGCalculatorByMonthQuery implements Query {
 
-    //OP-19	Media delle presenze settimanali in sala pesi nell'arco di un mese
+    //OP-10	Media delle presenze settimanali in sala pesi nell'arco di un mese
     
     private final String QUERY = "SELECT COUNT(*) / 4 AS MediaSettimanale " +
             "FROM presenza_sala_pesi " +

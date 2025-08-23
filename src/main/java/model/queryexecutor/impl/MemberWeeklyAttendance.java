@@ -1,6 +1,5 @@
 package model.queryexecutor.impl;
 
-import controller.Controller;
 import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
@@ -14,7 +13,7 @@ import javax.sql.rowset.RowSetProvider;
 
 public class MemberWeeklyAttendance implements Query {
     
-    //OP-29	Visualizzare la media settimanale delle presenze di un iscritto
+    //OP-18	Visualizzare la media settimanale delle presenze di un iscritto
 
     private final String QUERY = 
     "SELECT CF, COUNT(*) / 52 AS Media_Settimanale " +

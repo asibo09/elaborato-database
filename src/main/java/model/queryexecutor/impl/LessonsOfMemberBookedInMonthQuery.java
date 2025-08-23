@@ -1,6 +1,5 @@
 package model.queryexecutor.impl;
 
-import controller.Controller;
 import model.queryexecutor.api.Query;
 
 import java.sql.*;
@@ -11,7 +10,7 @@ import javax.sql.rowset.RowSetProvider;
 
 public class LessonsOfMemberBookedInMonthQuery implements Query {
 
-    //OP-13	Elenca tutte le lezioni a cui un iscritto si è prenotato o presentato in un determinato mese di un determinato anno
+    //OP-5	Elenca tutte le lezioni a cui un iscritto si è prenotato o presentato in un determinato mese di un determinato anno
 
     private static final String QUERY =
     "SELECT * " +
@@ -63,11 +62,11 @@ public class LessonsOfMemberBookedInMonthQuery implements Query {
             CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
             crs.populate(rs);
 
-            if (!crs.isBeforeFirst()) { // nessuna riga
+            if (!crs.isBeforeFirst()) { 
                 return Optional.empty();
             }
 
-            return Optional.of(crs); // CachedRowSet implementa ResultSet
+            return Optional.of(crs);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

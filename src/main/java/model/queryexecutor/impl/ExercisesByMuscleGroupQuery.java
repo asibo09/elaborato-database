@@ -1,6 +1,5 @@
 package model.queryexecutor.impl;
 
-import controller.Controller;
 import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
@@ -14,7 +13,7 @@ import javax.sql.rowset.RowSetProvider;
 
 public class ExercisesByMuscleGroupQuery implements Query {
 
-    //OP-16	Mostrare gli esercizi che allenano un determinato gruppo muscolare
+    //OP-8	Mostrare gli esercizi che allenano un determinato gruppo muscolare
 
     private final String QUERY = "SELECT e.Nome_esercizio " +
             "FROM esercizio e, allenamento a, gruppo_muscolare g " +

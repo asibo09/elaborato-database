@@ -1,6 +1,6 @@
 package model.queryexecutor.impl;
 
-import controller.Controller;
+
 import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
@@ -14,7 +14,7 @@ import javax.sql.rowset.RowSetProvider;
 
 public class UnresolvedReportsOlderThanThreeDays implements Query {
 
-    //OP-28	Visualizza le segnalazioni non risolte da più di 3 giorni
+    //OP-17	Visualizza le segnalazioni non risolte da più di 3 giorni
     
     private final String QUERY =
     "SELECT * " +

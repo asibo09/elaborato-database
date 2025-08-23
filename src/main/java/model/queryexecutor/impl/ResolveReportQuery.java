@@ -13,7 +13,7 @@ import javax.sql.rowset.RowSetProvider;
 
 public class ResolveReportQuery implements Query {
 
-    // OP-30 Aggiornamento lo stato di una segnalazione a "Risolto"
+    // OP-20 Aggiornamento lo stato di una segnalazione a "Risolto"
 
     private static final String QUERY =
         "UPDATE storico_segnalazioni SET Stato = 'Risolto' " +

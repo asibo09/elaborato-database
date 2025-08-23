@@ -1,6 +1,5 @@
 package model.queryexecutor.impl;
 
-import controller.Controller;
 import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
@@ -14,7 +13,7 @@ import javax.sql.rowset.RowSetProvider;
 
 public class TrainerCoursesOfTheCurrentYearQuery implements Query {
 
-    //OP-15	Elenco dei corsi tenuti da un trainer in un determinato anno
+    //OP-7	Elenco dei corsi tenuti da un trainer in un determinato anno
 
     private final String TRAINER_CF_QUERY = "Select CF " +
             "From trainer " +

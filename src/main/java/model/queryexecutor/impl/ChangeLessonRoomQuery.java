@@ -1,6 +1,5 @@
 package model.queryexecutor.impl;
 
-import controller.Controller;
 import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
@@ -17,7 +16,7 @@ import java.sql.ResultSet;
 
 public class ChangeLessonRoomQuery implements Query {
     
-    //OP-21	Spostare una lezione in un'altra sala
+    //OP-12	Spostare una lezione in un'altra sala
 
     private final String COPY_LEZIONE = 
     "INSERT INTO LEZIONE (Data, Ora, Codice_sala, Data_inizio, Nome) " +
@@ -109,7 +108,7 @@ public class ChangeLessonRoomQuery implements Query {
 
                 conn.commit();
 
-                // Prepara e ritorna il ResultSet di Lezione
+                //prepara e ritorna il ResultSet di Lezione
                 selectLezione.setDate(1, data);
                 selectLezione.setTime(2, ora);
                 ResultSet resultSet = selectLezione.executeQuery();

@@ -1,6 +1,5 @@
 package model.queryexecutor.impl;
 
-import controller.Controller;
 import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
@@ -14,7 +13,7 @@ import javax.sql.rowset.RowSetProvider;
 
 public class MostLessonByTrainerInMonthQuery implements Query {
 
-    //OP-25	Visualizza i trainer con più lezioni in un determinato mese
+    //OP-15	Visualizza i trainer con più lezioni in un determinato mese
 
     private final String QUERY = 
     "SELECT  t.CF, t.Nome, t.Cognome, COUNT(*) AS NumeroLezioni " +

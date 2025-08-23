@@ -1,6 +1,5 @@
 package model.queryexecutor.impl;
 
-import controller.Controller;
 import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
@@ -14,7 +13,7 @@ import javax.sql.rowset.RowSetProvider;
 
 public class LastYearReportsQuery implements Query {
 
-    //OP-17 Visualizzare le segnalazioni nell’ultimo anno
+    //OP-19 Visualizzare le segnalazioni nell’ultimo anno
 
     private final String QUERY = 
     "SELECT * " +

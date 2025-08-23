@@ -13,7 +13,7 @@ import javax.sql.rowset.RowSetProvider;
 
 public class AddReportQuery implements Query {
 
-    //OP-12	Inserimento di una segnalazione
+    //OP-4	Inserimento di una segnalazione
 
     private final String QUERY = "INSERT INTO storico_segnalazioni (Data, Ora, CF, Stato, Descrizione, Numero_macchinario, Nome_macchinario)" +
             "VALUES (?, ?, ?, ?, ?, ?, ?)";

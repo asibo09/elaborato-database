@@ -1,6 +1,5 @@
 package model.queryexecutor.impl;
 
-import controller.Controller;
 import model.queryexecutor.api.Query;
 
 import java.sql.Connection;
@@ -14,7 +13,7 @@ import javax.sql.rowset.RowSetProvider;
 
 public class ViewWorkoutPlanQuery implements Query {
 
-    // OP-20    Visualizza una scheda di un iscritto
+    //OP-11    Visualizza una scheda di un iscritto
 
     private final String QUERY =
     "SELECT U.CF, U.Codice_scheda, M.Posizione, M.Nome_esercizio, C.Peso, C.Numero_ripetizioni, C.recupero, C.quantita " +
