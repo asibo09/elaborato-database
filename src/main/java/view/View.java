@@ -31,7 +31,7 @@ public class View {
     private final JPanel segnalazioniPanel;
 
     public View(final BridgeCV bridgeCV) {
-        frame = new JFrame("My Application");
+        frame = new JFrame("Gestionale Palestra");
         panel = new JPanel();
         menu = new JToolBar();
         persona = new JButton("Persona");
