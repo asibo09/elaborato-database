@@ -1,8 +1,15 @@
-#PROGETTO DATABASE PALESTRA
+# Elaborato Database — Gruppo 2872
 
-Progetto del corso basi di dati.
+Questo repository raccoglie l’elaborato sviluppato per il corso di **Basi di Dati** da:
+**Siboni Pietro, Fronzi Andrea, Aresu Marco**
 
-In this case it's necessary to issue a request withoout
-knowing anything about the operations being requested.
-Thereby the Command Pattern is perfect to encapsulate
-the request into an object.
+Il progetto comprende:
+
+- **Database**: schema, tabelle e relazioni  
+- **Query**: interrogazioni per gestione ed estrazione dati  
+- **Applicativo**: codice e strumenti per interagire con il database  
+- **Relazione**: documento che descrive il lavoro svolto
+
+A.A. 2024/25, Ingegneria e Scienze Informatiche, Università di Bologna - Cesena.
+
+Docenti: Annalisa Franco.
